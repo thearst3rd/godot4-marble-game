@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=3 uid="uid://dtgoq462nh01f"]
+
+[ext_resource type="PackedScene" uid="uid://x10k41fn8cyv" path="res://src/objects/marble.tscn" id="1_u2bnu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kf183"]
+size = Vector3(16, 0.5, 16)
+
+[sub_resource type="Gradient" id="Gradient_0vjai"]
+offsets = PackedFloat32Array(0, 0.160839, 0.258741, 0.328671, 0.426573, 0.566434, 1)
+colors = PackedColorArray(0, 0.690196, 1, 1, 0.0431373, 0.882353, 0.811765, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0.4, 0.827451, 1, 0.341176, 0.603922, 1, 1, 0.156863, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ga38n"]
+gradient = SubResource("Gradient_0vjai")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e574d"]
+albedo_texture = SubResource("GradientTexture2D_ga38n")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_ornpx"]
+material = SubResource("StandardMaterial3D_e574d")
+size = Vector3(16, 0.5, 16)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qghod"]
+
+[sub_resource type="Sky" id="Sky_gy3j6"]
+sky_material = SubResource("ProceduralSkyMaterial_qghod")
+
+[sub_resource type="Environment" id="Environment_rta11"]
+background_mode = 2
+sky = SubResource("Sky_gy3j6")
+ambient_light_source = 3
+reflected_light_source = 2
+
+[node name="TestLevel" type="Node3D"]
+
+[node name="Marble" parent="." instance=ExtResource("1_u2bnu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_kf183")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_ornpx")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rta11")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 0, 0)
+shadow_enabled = true

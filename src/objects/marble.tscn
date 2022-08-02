@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://x10k41fn8cyv"]
+
+[ext_resource type="Script" path="res://src/objects/marble.gd" id="1_ajff0"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qhoku"]
+friction = 10.0
+bounce = 0.5
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jlkpd"]
+
+[sub_resource type="NoiseTexture" id="NoiseTexture_ivi28"]
+height = 256
+seamless = true
+noise = SubResource("FastNoiseLite_jlkpd")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bghqm"]
+albedo_color = Color(1, 0.505882, 1, 1)
+albedo_texture = SubResource("NoiseTexture_ivi28")
+roughness = 0.61
+
+[sub_resource type="SphereMesh" id="SphereMesh_bodwk"]
+material = SubResource("StandardMaterial3D_bghqm")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ggn7h"]
+
+[node name="Marble" type="RigidDynamicBody3D"]
+collision_mask = 2
+physics_material_override = SubResource("PhysicsMaterial_qhoku")
+continuous_cd = true
+contacts_reported = 1
+contact_monitor = true
+linear_damp = 0.5
+angular_damp = 0.25
+script = ExtResource("1_ajff0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_bodwk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_ggn7h")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+collision_mask = 2
+spring_length = 5.0
+margin = 0.1
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
