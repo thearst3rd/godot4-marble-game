@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://src/objects/marble.gd" id="1_ajff0"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qhoku"]
-friction = 10.0
 bounce = 0.5
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_jlkpd"]
@@ -16,7 +15,7 @@ noise = SubResource("FastNoiseLite_jlkpd")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bghqm"]
 albedo_color = Color(1, 0.505882, 1, 1)
 albedo_texture = SubResource("NoiseTexture_ivi28")
-roughness = 0.61
+roughness = 0.6
 
 [sub_resource type="SphereMesh" id="SphereMesh_bodwk"]
 material = SubResource("StandardMaterial3D_bghqm")
@@ -39,9 +38,12 @@ mesh = SubResource("SphereMesh_bodwk")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_ggn7h")
 
-[node name="SpringArm3D" type="SpringArm3D" parent="."]
+[node name="CenterNode" type="Node3D" parent="."]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CenterNode"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0)
 collision_mask = 2
 spring_length = 5.0
 margin = 0.1
 
-[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+[node name="Camera3D" type="Camera3D" parent="CenterNode/SpringArm3D"]
