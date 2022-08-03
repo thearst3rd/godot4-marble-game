@@ -60,4 +60,5 @@ restart={
 
 [physics]
 
+common/physics_ticks_per_second=100
 3d/default_gravity=30.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dtgoq462nh01f"]
+[gd_scene load_steps=12 format=3 uid="uid://dtgoq462nh01f"]
 
 [ext_resource type="PackedScene" uid="uid://x10k41fn8cyv" path="res://src/objects/marble.tscn" id="1_u2bnu"]
 [ext_resource type="Material" uid="uid://dfgky8i28wa1a" path="res://resources/gradient_texture1.tres" id="2_gg0vu"]
@@ -28,21 +28,30 @@ size = Vector3(4, 0.5, 8)
 [sub_resource type="BoxShape3D" id="BoxShape3D_477ma"]
 size = Vector3(4, 0.5, 8)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_1auy5"]
+size = Vector3(0.5, 4, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fpv0t"]
+material = ExtResource("2_gg0vu")
+size = Vector3(0.5, 4, 4)
+
 [node name="TestLevel" type="Node3D"]
 
 [node name="Marble" parent="." instance=ExtResource("1_u2bnu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+contacts_reported = 3
 
 [node name="Floor" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 collision_layer = 2
 collision_mask = 0
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 shape = SubResource("BoxShape3D_kf183")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 mesh = SubResource("BoxMesh_ornpx")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -77,3 +86,17 @@ skeleton = NodePath("../CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp2"]
 shape = SubResource("BoxShape3D_477ma")
+
+[node name="Wall" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2, 6)
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0)
+shape = SubResource("BoxShape3D_1auy5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0)
+mesh = SubResource("BoxMesh_fpv0t")
