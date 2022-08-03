@@ -56,24 +56,25 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	var torque_vector := (Vector3(wishdir.y, 0, -wishdir.x) * TORQUE_MAGNITUDE).rotated(Vector3.UP, look_direction.y)
 	apply_torque(torque_vector)
 
-
 	if jumping:
 		if not is_on_floor(state):
 			jumping = false
 	elif Input.is_action_pressed("jump") and is_on_floor(state):
 		# Get jump angle
-		print("Jump started: before jump: %s" % linear_velocity)
-		jumping = true
 		var jump_vector = Vector3.ZERO
 		for contact in state.get_contact_count():
 			var contact_normal := state.get_contact_local_normal(contact)
 			if contact_normal.dot(Vector3.UP) > 0.5:
 				jump_vector += contact_normal
 		jump_vector = jump_vector.normalized()
-		#var rotated_velocity := linear_velocity.rotated(-jump_vector)
-		#rotated_velocity.y = JUMP_IMPULSE
-		linear_velocity.y = JUMP_IMPULSE
-		#apply_impulse(jump_vector.normalized() * JUMP_IMPULSE)
+		# We don't want a jump to go any higher if you combine it with a bounce. Dot the jump vector with the current
+		# linear velocity to make the impulse smaller.
+		# Also, if the factor is less than 0, that means the bounce was too high that jumping would make the ball go
+		# _lower_ than it would without a jump! If that's the case, don't allow the jump
+		var factor := 1.0 - (linear_velocity / JUMP_IMPULSE).dot(jump_vector)
+		if factor > 0:
+			jumping = true
+			apply_impulse(jump_vector.normalized() * JUMP_IMPULSE * factor)
 
 
 func is_on_floor(state: PhysicsDirectBodyState3D) -> bool:

@@ -28,7 +28,7 @@ physics_material_override = SubResource("PhysicsMaterial_qhoku")
 continuous_cd = true
 contacts_reported = 1
 contact_monitor = true
-linear_damp = 0.5
+linear_damp = 0.2
 angular_damp = 0.25
 script = ExtResource("1_ajff0")
 

@@ -87,6 +87,58 @@ skeleton = NodePath("../CollisionShape3D")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp2"]
 shape = SubResource("BoxShape3D_477ma")
 
+[node name="Ramp3" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, -5, 8.5, 1)
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ramp3"]
+mesh = SubResource("BoxMesh_pebx6")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp3"]
+shape = SubResource("BoxShape3D_477ma")
+
+[node name="Ramp4" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, -5, 14.5, -5)
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ramp4"]
+mesh = SubResource("BoxMesh_pebx6")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp4"]
+shape = SubResource("BoxShape3D_477ma")
+
+[node name="Ramp5" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 18.5, -13)
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ramp5"]
+mesh = SubResource("BoxMesh_pebx6")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp5"]
+shape = SubResource("BoxShape3D_477ma")
+
+[node name="Ramp6" type="StaticBody3D" parent="."]
+transform = Transform3D(-3.09086e-08, -0.707107, -0.707107, -3.09086e-08, 0.707107, -0.707107, 1, 0, -4.37114e-08, 0, 21.5, -11)
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ramp6"]
+mesh = SubResource("BoxMesh_pebx6")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp6"]
+shape = SubResource("BoxShape3D_477ma")
+
 [node name="Wall" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2, 6)
 collision_layer = 2
