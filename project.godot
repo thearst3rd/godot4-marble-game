@@ -55,8 +55,8 @@ restart={
 
 [layer_names]
 
-3d_physics/layer_1="marble"
-3d_physics/layer_2="world"
+3d_physics/layer_1="world"
+3d_physics/layer_2="marble"
 
 [physics]
 

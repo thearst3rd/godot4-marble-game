@@ -17,9 +17,11 @@ var jumping := false
 
 func _ready() -> void:
 	look_direction = spring_arm.rotation
+	look_direction.z = 0.0
 	look_direction_raw = look_direction
 	center_node.top_level = true
 	center_node.position = position
+	center_node.rotation = Vector3.ZERO
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 

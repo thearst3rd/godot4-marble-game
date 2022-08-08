@@ -3,23 +3,23 @@
 [ext_resource type="PackedScene" uid="uid://x10k41fn8cyv" path="res://src/objects/marble.tscn" id="1_u2bnu"]
 [ext_resource type="Material" uid="uid://dfgky8i28wa1a" path="res://resources/gradient_texture1.tres" id="2_gg0vu"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qghod"]
+
+[sub_resource type="Sky" id="Sky_dssyr"]
+sky_material = SubResource("ProceduralSkyMaterial_qghod")
+
+[sub_resource type="Environment" id="Environment_rta11"]
+background_mode = 2
+sky = SubResource("Sky_dssyr")
+ambient_light_source = 3
+reflected_light_source = 2
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_kf183"]
 size = Vector3(16, 0.5, 16)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ornpx"]
 material = ExtResource("2_gg0vu")
 size = Vector3(16, 0.5, 16)
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qghod"]
-
-[sub_resource type="Sky" id="Sky_gy3j6"]
-sky_material = SubResource("ProceduralSkyMaterial_qghod")
-
-[sub_resource type="Environment" id="Environment_rta11"]
-background_mode = 2
-sky = SubResource("Sky_gy3j6")
-ambient_light_source = 3
-reflected_light_source = 2
 
 [sub_resource type="BoxMesh" id="BoxMesh_pebx6"]
 material = ExtResource("2_gg0vu")
@@ -37,12 +37,17 @@ size = Vector3(0.5, 4, 4)
 
 [node name="TestLevel" type="Node3D"]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rta11")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 0, 0)
+shadow_enabled = true
+
 [node name="Marble" parent="." instance=ExtResource("1_u2bnu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-contacts_reported = 3
 
 [node name="Floor" type="StaticBody3D" parent="."]
-collision_layer = 2
 collision_mask = 0
 metadata/_edit_group_ = true
 
@@ -54,16 +59,8 @@ shape = SubResource("BoxShape3D_kf183")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 mesh = SubResource("BoxMesh_ornpx")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_rta11")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 0, 0)
-shadow_enabled = true
-
 [node name="Ramp" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 2.5, -12)
-collision_layer = 2
 collision_mask = 0
 metadata/_edit_group_ = true
 
@@ -76,7 +73,6 @@ shape = SubResource("BoxShape3D_477ma")
 
 [node name="Ramp2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 3.5, 7)
-collision_layer = 2
 collision_mask = 0
 metadata/_edit_group_ = true
 
@@ -89,7 +85,6 @@ shape = SubResource("BoxShape3D_477ma")
 
 [node name="Ramp3" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, -5, 8.5, 1)
-collision_layer = 2
 collision_mask = 0
 metadata/_edit_group_ = true
 
@@ -102,7 +97,6 @@ shape = SubResource("BoxShape3D_477ma")
 
 [node name="Ramp4" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, -5, 14.5, -5)
-collision_layer = 2
 collision_mask = 0
 metadata/_edit_group_ = true
 
@@ -115,7 +109,6 @@ shape = SubResource("BoxShape3D_477ma")
 
 [node name="Ramp5" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 18.5, -13)
-collision_layer = 2
 collision_mask = 0
 metadata/_edit_group_ = true
 
@@ -128,7 +121,6 @@ shape = SubResource("BoxShape3D_477ma")
 
 [node name="Ramp6" type="StaticBody3D" parent="."]
 transform = Transform3D(-3.09086e-08, -0.707107, -0.707107, -3.09086e-08, 0.707107, -0.707107, 1, 0, -4.37114e-08, 0, 21.5, -11)
-collision_layer = 2
 collision_mask = 0
 metadata/_edit_group_ = true
 
@@ -141,7 +133,6 @@ shape = SubResource("BoxShape3D_477ma")
 
 [node name="Wall" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2, 6)
-collision_layer = 2
 collision_mask = 0
 metadata/_edit_group_ = true
 

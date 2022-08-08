@@ -23,10 +23,9 @@ material = SubResource("StandardMaterial3D_bghqm")
 [sub_resource type="SphereShape3D" id="SphereShape3D_ggn7h"]
 
 [node name="Marble" type="RigidDynamicBody3D"]
-collision_mask = 2
+collision_layer = 2
 physics_material_override = SubResource("PhysicsMaterial_qhoku")
-continuous_cd = true
-contacts_reported = 1
+contacts_reported = 3
 contact_monitor = true
 linear_damp = 0.2
 angular_damp = 0.25
@@ -42,7 +41,6 @@ shape = SubResource("SphereShape3D_ggn7h")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CenterNode"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0)
-collision_mask = 2
 spring_length = 5.0
 margin = 0.1
 
