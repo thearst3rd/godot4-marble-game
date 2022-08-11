@@ -11,14 +11,20 @@ config_version=5
 [application]
 
 config/name="MarbleGame"
-run/main_scene="res://src/levels/test_level.tscn"
+run/main_scene="res://src/states/main_menu.tscn"
 config/features=PackedStringArray("4.0", "Vulkan Clustered")
 config/icon="res://icon.png"
+
+[autoload]
+
+Global="*res://src/scripts/global.gd"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [input]
 
@@ -60,5 +66,5 @@ restart={
 
 [physics]
 
-common/physics_ticks_per_second=100
+common/physics_ticks_per_second=120
 3d/default_gravity=30.0

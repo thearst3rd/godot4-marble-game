@@ -3,7 +3,7 @@ extends RigidDynamicBody3D
 
 const FORCE_MAGNITUDE = 20.0
 const TORQUE_MAGNITUDE = 5.0
-const LOOK_SENS = Vector2(0.0025, 0.0015)
+const LOOK_SENS = Vector2(0.0025, 0.0025)
 const JUMP_IMPULSE = 13.0
 
 var look_direction: Vector3

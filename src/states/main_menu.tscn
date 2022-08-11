@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://br2drm28xcex3"]
+
+[ext_resource type="Script" path="res://src/states/main_menu.gd" id="1_gme1p"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uuynm"]
+font_size = 69
+shadow_color = Color(1, 1, 1, 0)
+
+[node name="MainMenu" type="CenterContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_gme1p")
+
+[node name="V" type="VBoxContainer" parent="."]
+offset_left = 415.0
+offset_top = 265.0
+offset_right = 865.0
+offset_bottom = 454.0
+theme_override_constants/separation = 24
+
+[node name="Label" type="Label" parent="V"]
+offset_right = 450.0
+offset_bottom = 95.0
+text = "Marble Game"
+label_settings = SubResource("LabelSettings_uuynm")
+
+[node name="V" type="VBoxContainer" parent="V"]
+custom_minimum_size = Vector2(200, 0)
+offset_left = 125.0
+offset_top = 119.0
+offset_right = 325.0
+offset_bottom = 189.0
+size_flags_horizontal = 4
+theme_override_constants/separation = 8
+
+[node name="PlayButton" type="Button" parent="V/V"]
+unique_name_in_owner = true
+offset_right = 200.0
+offset_bottom = 31.0
+text = "Play"
+
+[node name="QuitButton" type="Button" parent="V/V"]
+unique_name_in_owner = true
+offset_top = 39.0
+offset_right = 200.0
+offset_bottom = 70.0
+text = "Quit"
+
+[connection signal="pressed" from="V/V/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="V/V/QuitButton" to="." method="_on_quit_button_pressed"]

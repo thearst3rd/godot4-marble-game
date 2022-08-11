@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://bo2ifnpkkdnry"]
+
+[ext_resource type="Script" path="res://src/states/game.gd" id="1_fjh6w"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jqoxj"]
+font_size = 48
+shadow_color = Color(1, 1, 1, 0)
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_fjh6w")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TimerDisplay" type="Label" parent="CanvasLayer/Control"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_right = 150.0
+offset_bottom = 67.0
+text = "00:00.000"
+label_settings = SubResource("LabelSettings_jqoxj")
+horizontal_alignment = 1
