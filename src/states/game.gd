@@ -7,10 +7,17 @@ var timer: float
 
 
 func _ready() -> void:
-	var level := load(Global.level_path) as PackedScene
-	add_child(level.instantiate())
 	timer = 0.0
 	update_timer()
+
+	var level := load(Global.level_path) as PackedScene
+	add_child(level.instantiate())
+	var start_pad: Node3D = get_tree().get_first_node_in_group("StartPad")
+
+	var marble: RigidDynamicBody3D = preload("res://src/objects/marble.tscn").instantiate()
+	marble.position = start_pad.position + Vector3.UP * 4
+	marble.rotation = start_pad.rotation
+	add_child(marble)
 
 
 func _physics_process(delta: float) -> void:
