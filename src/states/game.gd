@@ -26,9 +26,9 @@ func _physics_process(delta: float) -> void:
 
 
 func update_timer() -> void:
-	var minutes := floor(timer / 60.0)
+	var minutes := floori(timer / 60.0)
 	var non_minutes := fmod(timer, 60.0)
-	var seconds := floor(non_minutes)
-	var non_seconds = fmod(non_minutes, 1.0)
-	var milliseconds = floor(non_seconds * 1000)
+	var seconds := floori(non_minutes)
+	var non_seconds := fmod(non_minutes, 1.0)
+	var milliseconds := floori(non_seconds * 1000)
 	%TimerDisplay.text = "%02d:%02d:%03d" % [minutes, seconds, milliseconds]
