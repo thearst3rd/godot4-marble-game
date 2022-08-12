@@ -33,15 +33,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_tree().reload_current_scene()
 
 
-func get_time() -> float:
-	return float(ticks) / float(Engine.physics_ticks_per_second)
-
-
 func update_timer() -> void:
-	var timer := get_time()
-	var minutes := floori(timer / 60.0)
-	var non_minutes := fmod(timer, 60.0)
-	var seconds := floori(non_minutes)
-	var non_seconds := fmod(non_minutes, 1.0)
-	var milliseconds := floori(non_seconds * 1000)
+	@warning_ignore(integer_division)
+	var minutes := ticks / (60 * Engine.physics_ticks_per_second)
+	var non_minute_ticks := ticks % (60 * Engine.physics_ticks_per_second)
+	@warning_ignore(integer_division)
+	var seconds := non_minute_ticks / Engine.physics_ticks_per_second
+	var non_second_ticks := ticks % Engine.physics_ticks_per_second
+	@warning_ignore(integer_division)
+	var milliseconds := non_second_ticks * 1000 / Engine.physics_ticks_per_second
 	%TimerDisplay.text = "%02d:%02d.%03d" % [minutes, seconds, milliseconds]
