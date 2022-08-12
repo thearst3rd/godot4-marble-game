@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="MarbleGame"
-run/main_scene="res://src/states/main_menu.tscn"
+run/main_scene="res://src/states/menu/main_menu.tscn"
 config/features=PackedStringArray("4.0", "Vulkan Clustered")
 config/icon="res://icon.png"
 

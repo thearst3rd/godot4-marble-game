@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ba3xunwbsdxx8"]
+[gd_scene load_steps=5 format=3 uid="uid://cvg8gsbtjvq4q"]
 
-[ext_resource type="Script" path="res://src/states/game.gd" id="1_jq5bg"]
-[ext_resource type="Script" path="res://src/states/pause_menu.gd" id="2_oqgv2"]
+[ext_resource type="Script" path="res://src/states/game/game.gd" id="1_5rnum"]
+[ext_resource type="Script" path="res://src/states/game/pause_menu.gd" id="2_uoyff"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jqoxj"]
 font_size = 48
@@ -15,7 +15,7 @@ outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
 [node name="Game" type="Node3D"]
-script = ExtResource("1_jq5bg")
+script = ExtResource("1_5rnum")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -64,7 +64,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0, 0, 0, 0.392157)
-script = ExtResource("2_oqgv2")
+script = ExtResource("2_uoyff")
 
 [node name="C" type="CenterContainer" parent="CanvasLayer/PauseMenu"]
 anchor_right = 1.0
