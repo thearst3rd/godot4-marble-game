@@ -36,17 +36,9 @@ func _process(_delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and event is InputEventMouseMotion:
+		get_viewport().set_input_as_handled()
 		look_direction_raw.y -= event.relative.x * LOOK_SENS.x
 		look_direction_raw.x -= event.relative.y * LOOK_SENS.y
-	elif event.is_action_pressed("ui_cancel"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	elif Input.mouse_mode != Input.MOUSE_MODE_CAPTURED and event is InputEventMouseButton:
-		var mouse_event := event as InputEventMouseButton
-		if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	else:
-		if event.is_action_pressed("restart"):
-			get_tree().reload_current_scene()
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:

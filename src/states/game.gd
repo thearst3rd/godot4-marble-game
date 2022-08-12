@@ -2,7 +2,6 @@ extends Node3D
 
 
 var state: String
-
 var ticks: int
 
 
@@ -20,9 +19,18 @@ func _ready() -> void:
 	add_child(marble)
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	ticks += 1
 	update_timer()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause"):
+		get_viewport().set_input_as_handled()
+		%PauseMenu.show_pause_menu()
+	elif event.is_action_pressed("restart"):
+		get_viewport().set_input_as_handled()
+		get_tree().reload_current_scene()
 
 
 func get_time() -> float:
@@ -36,4 +44,4 @@ func update_timer() -> void:
 	var seconds := floori(non_minutes)
 	var non_seconds := fmod(non_minutes, 1.0)
 	var milliseconds := floori(non_seconds * 1000)
-	%TimerDisplay.text = "%02d:%02d:%03d" % [minutes, seconds, milliseconds]
+	%TimerDisplay.text = "%02d:%02d.%03d" % [minutes, seconds, milliseconds]

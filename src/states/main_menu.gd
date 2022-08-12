@@ -1,6 +1,10 @@
 extends CenterContainer
 
 
+func _ready() -> void:
+	%PlayButton.grab_focus()
+
+
 func _on_play_button_pressed() -> void:
 	Global.level_path = "res://src/levels/test_level.tscn"
 	var error := get_tree().change_scene("res://src/states/game.tscn")

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://ba3xunwbsdxx8"]
+[gd_scene load_steps=5 format=3 uid="uid://ba3xunwbsdxx8"]
 
 [ext_resource type="Script" path="res://src/states/game.gd" id="1_jq5bg"]
+[ext_resource type="Script" path="res://src/states/pause_menu.gd" id="2_oqgv2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jqoxj"]
 font_size = 48
@@ -56,3 +57,47 @@ label_settings = SubResource("LabelSettings_vniax")
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_layout_mode = 1
+
+[node name="PauseMenu" type="ColorRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.392157)
+script = ExtResource("2_oqgv2")
+
+[node name="C" type="CenterContainer" parent="CanvasLayer/PauseMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="V" type="VBoxContainer" parent="CanvasLayer/PauseMenu/C"]
+custom_minimum_size = Vector2(200, 0)
+offset_left = 540.0
+offset_top = 305.0
+offset_right = 740.0
+offset_bottom = 414.0
+theme_override_constants/separation = 8
+
+[node name="ResumeButton" type="Button" parent="CanvasLayer/PauseMenu/C/V"]
+unique_name_in_owner = true
+offset_right = 200.0
+offset_bottom = 31.0
+text = "Resume"
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/PauseMenu/C/V"]
+unique_name_in_owner = true
+offset_top = 39.0
+offset_right = 200.0
+offset_bottom = 70.0
+text = "Restart Level"
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/PauseMenu/C/V"]
+unique_name_in_owner = true
+offset_top = 78.0
+offset_right = 200.0
+offset_bottom = 109.0
+text = "Exit Level"
+
+[connection signal="pressed" from="CanvasLayer/PauseMenu/C/V/ResumeButton" to="CanvasLayer/PauseMenu" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/C/V/RestartButton" to="CanvasLayer/PauseMenu" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/C/V/ExitButton" to="CanvasLayer/PauseMenu" method="_on_exit_button_pressed"]
