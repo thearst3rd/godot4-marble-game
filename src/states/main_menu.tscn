@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://br2drm28xcex3"]
+[gd_scene load_steps=3 format=3 uid="uid://boo27vba5fdg1"]
 
 [ext_resource type="Script" path="res://src/states/main_menu.gd" id="1_gme1p"]
 
@@ -13,23 +13,23 @@ script = ExtResource("1_gme1p")
 
 [node name="V" type="VBoxContainer" parent="."]
 offset_left = 415.0
-offset_top = 265.0
+offset_top = 264.0
 offset_right = 865.0
-offset_bottom = 454.0
+offset_bottom = 456.0
 theme_override_constants/separation = 24
 
 [node name="Label" type="Label" parent="V"]
 offset_right = 450.0
-offset_bottom = 95.0
+offset_bottom = 98.0
 text = "Marble Game"
 label_settings = SubResource("LabelSettings_uuynm")
 
 [node name="V" type="VBoxContainer" parent="V"]
 custom_minimum_size = Vector2(200, 0)
 offset_left = 125.0
-offset_top = 119.0
+offset_top = 122.0
 offset_right = 325.0
-offset_bottom = 189.0
+offset_bottom = 192.0
 size_flags_horizontal = 4
 theme_override_constants/separation = 8
 

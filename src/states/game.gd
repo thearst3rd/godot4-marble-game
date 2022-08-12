@@ -3,11 +3,11 @@ extends Node3D
 
 var state: String
 
-var timer: float
+var ticks: int
 
 
 func _ready() -> void:
-	timer = 0.0
+	ticks = 0
 	update_timer()
 
 	var level := load(Global.level_path) as PackedScene
@@ -21,11 +21,16 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	timer += delta
+	ticks += 1
 	update_timer()
 
 
+func get_time() -> float:
+	return float(ticks) / float(Engine.physics_ticks_per_second)
+
+
 func update_timer() -> void:
+	var timer := get_time()
 	var minutes := floori(timer / 60.0)
 	var non_minutes := fmod(timer, 60.0)
 	var seconds := floori(non_minutes)
