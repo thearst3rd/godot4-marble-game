@@ -26,12 +26,13 @@ curve = SubResource("Curve_8a23i")
 
 [sub_resource type="ParticlesMaterial" id="ParticlesMaterial_w55ea"]
 emission_shape = 1
-emission_sphere_radius = 2.0
+emission_sphere_radius = 1.5
+spread = 180.0
 gravity = Vector3(0, 0, 0)
 initial_velocity_min = 0.5
 initial_velocity_max = 1.0
-damping_min = 0.1
-damping_max = 0.1
+damping_min = 0.3
+damping_max = 0.3
 scale_curve = SubResource("CurveTexture_ura66")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v66iy"]
@@ -60,6 +61,8 @@ mesh = SubResource("CylinderMesh_okw6p")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+visible = false
+emitting = false
 amount = 16
 lifetime = 2.0
 visibility_aabb = AABB(-2, -2, -2, 4, 4, 4)
