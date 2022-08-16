@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://dtgoq462nh01f"]
+[gd_scene load_steps=13 format=3 uid="uid://dtgoq462nh01f"]
 
 [ext_resource type="PackedScene" uid="uid://lo66bw0ph485" path="res://src/objects/start_pad.tscn" id="2_addvg"]
 [ext_resource type="Material" uid="uid://dfgky8i28wa1a" path="res://resources/gradient_texture1.tres" id="2_gg0vu"]
+[ext_resource type="PackedScene" uid="uid://5b7m40r8veu5" path="res://src/objects/finish_area.tscn" id="3_rnlft"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qghod"]
 
@@ -143,3 +144,6 @@ mesh = SubResource("BoxMesh_fpv0t")
 
 [node name="StartPad" parent="." instance=ExtResource("2_addvg")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5, 0, 0)
+
+[node name="FinishArea" parent="." instance=ExtResource("3_rnlft")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 24, -15)

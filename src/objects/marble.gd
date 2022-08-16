@@ -1,6 +1,8 @@
 extends RigidDynamicBody3D
 
 
+signal level_finished
+
 const FORCE_MAGNITUDE = 20.0
 const TORQUE_MAGNITUDE = 5.0
 const LOOK_SENS = Vector2(0.0025, 0.0025)
@@ -77,3 +79,9 @@ func is_on_floor(state: PhysicsDirectBodyState3D) -> bool:
 		if contact_normal.dot(Vector3.UP) > 0.5:
 			return true
 	return false
+
+
+func _on_trigger_entered(area: Area3D) -> void:
+	if area.is_in_group("finish"):
+		emit_signal("level_finished")
+		freeze = true

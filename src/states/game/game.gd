@@ -1,7 +1,9 @@
 extends Node3D
 
 
-var state: String
+enum State {WARMUP, PLAY, FINISH}
+
+var state: State
 var ticks: int
 
 
@@ -16,12 +18,27 @@ func _ready() -> void:
 	var marble: RigidDynamicBody3D = preload("res://src/objects/marble.tscn").instantiate()
 	marble.position = start_pad.position + Vector3.UP * 4
 	marble.rotation = start_pad.rotation
+	marble.freeze = true
+	marble.connect("level_finished", self._on_marble_level_finished)
 	add_child(marble)
+
+	state = State.WARMUP
+
+	await get_tree().create_timer(1.5).timeout
+
+	state = State.PLAY
+	%Countdown.text = "Go!"
+	marble.freeze = false
+
+	await get_tree().create_timer(2.0).timeout
+
+	%Countdown.hide()
 
 
 func _physics_process(_delta: float) -> void:
-	ticks += 1
-	update_timer()
+	if state == State.PLAY:
+		ticks += 1
+		update_timer()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -43,3 +60,7 @@ func update_timer() -> void:
 	@warning_ignore(integer_division)
 	var milliseconds := non_second_ticks * 1000 / Engine.physics_ticks_per_second
 	%TimerDisplay.text = "%02d:%02d.%03d" % [minutes, seconds, milliseconds]
+
+
+func _on_marble_level_finished() -> void:
+	state = State.FINISH

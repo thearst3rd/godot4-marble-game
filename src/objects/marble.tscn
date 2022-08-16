@@ -45,3 +45,13 @@ spring_length = 5.0
 margin = 0.1
 
 [node name="Camera3D" type="Camera3D" parent="CenterNode/SpringArm3D"]
+
+[node name="TriggerDetector" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerDetector"]
+shape = SubResource("SphereShape3D_ggn7h")
+
+[connection signal="area_entered" from="TriggerDetector" to="." method="_on_trigger_entered"]

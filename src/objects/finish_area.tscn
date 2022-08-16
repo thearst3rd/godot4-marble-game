@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://5b7m40r8veu5"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_t6win"]
+height = 4.0
+radius = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1nlng"]
+transparency = 1
+albedo_color = Color(0.129412, 0.705882, 0.572549, 0.117647)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_okw6p"]
+material = SubResource("StandardMaterial3D_1nlng")
+flip_faces = true
+top_radius = 2.0
+bottom_radius = 2.0
+height = 4.0
+radial_segments = 16
+rings = 1
+
+[sub_resource type="Curve" id="Curve_8a23i"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.244186, 1), 0.0, 0.0, 0, 0, Vector2(0.751938, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_ura66"]
+curve = SubResource("Curve_8a23i")
+
+[sub_resource type="ParticlesMaterial" id="ParticlesMaterial_w55ea"]
+emission_shape = 1
+emission_sphere_radius = 2.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+damping_min = 0.1
+damping_max = 0.1
+scale_curve = SubResource("CurveTexture_ura66")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v66iy"]
+transparency = 1
+albedo_color = Color(0.290196, 0.427451, 0.498039, 0.490196)
+
+[sub_resource type="SphereMesh" id="SphereMesh_gmm58"]
+material = SubResource("StandardMaterial3D_v66iy")
+radius = 0.05
+height = 0.1
+radial_segments = 12
+rings = 6
+
+[node name="FinishArea" type="Area3D" groups=["finish", "trigger"]]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("CylinderShape3D_t6win")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = SubResource("CylinderMesh_okw6p")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+amount = 16
+lifetime = 2.0
+visibility_aabb = AABB(-2, -2, -2, 4, 4, 4)
+process_material = SubResource("ParticlesMaterial_w55ea")
+draw_pass_1 = SubResource("SphereMesh_gmm58")

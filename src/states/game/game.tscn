@@ -40,7 +40,6 @@ vertical_alignment = 1
 
 [node name="Countdown" type="Label" parent="CanvasLayer/Gui"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(300, 100)
 anchor_left = 0.5
 anchor_top = 0.5
@@ -52,7 +51,7 @@ offset_right = 150.0
 offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Go!"
+text = "Ready..."
 label_settings = SubResource("LabelSettings_vniax")
 horizontal_alignment = 1
 vertical_alignment = 1
