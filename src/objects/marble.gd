@@ -1,6 +1,7 @@
 extends RigidDynamicBody3D
 
 
+signal gem_collected
 signal level_finished
 
 const FORCE_MAGNITUDE = 20.0
@@ -85,3 +86,6 @@ func _on_trigger_entered(area: Area3D) -> void:
 	if area.is_in_group("finish"):
 		emit_signal("level_finished")
 		freeze = true
+	elif area.is_in_group("gem"):
+		area.queue_free()
+		emit_signal("gem_collected")

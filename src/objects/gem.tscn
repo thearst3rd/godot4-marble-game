@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjaqttt1hr7fl"]
+
+[ext_resource type="Script" path="res://src/objects/gem.gd" id="1_oc33n"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_54kfl"]
+radius = 0.75
+
+[sub_resource type="BoxMesh" id="BoxMesh_51wrh"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Gem" type="Area3D" groups=["gem", "item"]]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_oc33n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_54kfl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, -0.707107, 0, 0.579228, 0.579228, -0.573577, 0.40558, 0.40558, 0.819152, 0, 0, 0)
+mesh = SubResource("BoxMesh_51wrh")

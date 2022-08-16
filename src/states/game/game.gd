@@ -6,6 +6,9 @@ enum State {WARMUP, PLAY, FINISH}
 var state: State
 var ticks: int
 
+var total_gems := 0
+var gems_collected := 0
+
 
 func _ready() -> void:
 	ticks = 0
@@ -20,6 +23,17 @@ func _ready() -> void:
 	marble.rotation = start_pad.rotation
 	marble.freeze = true
 	marble.connect("level_finished", self._on_marble_level_finished)
+	marble.connect("gem_collected", self._on_marble_gem_collected)
+
+	gems_collected = 0
+	total_gems = get_tree().get_nodes_in_group("gem").size()
+	if total_gems <= 0:
+		%GemDisplay.hide()
+	else:
+		for finish in get_tree().get_nodes_in_group("finish"):
+			finish.monitorable = false
+		update_gem_display()
+
 	add_child(marble)
 
 	state = State.WARMUP
@@ -62,5 +76,17 @@ func update_timer() -> void:
 	%TimerDisplay.text = "%02d:%02d.%03d" % [minutes, seconds, milliseconds]
 
 
+func update_gem_display() -> void:
+	%GemDisplay.text = "%d / %d" % [gems_collected, total_gems]
+
+
 func _on_marble_level_finished() -> void:
 	state = State.FINISH
+
+
+func _on_marble_gem_collected() -> void:
+	gems_collected += 1
+	update_gem_display()
+	if gems_collected >= total_gems:
+		for finish in get_tree().get_nodes_in_group("finish"):
+			finish.set_deferred("monitorable", true)

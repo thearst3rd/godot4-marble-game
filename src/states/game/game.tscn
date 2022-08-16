@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvg8gsbtjvq4q"]
+[gd_scene load_steps=6 format=3 uid="uid://cvg8gsbtjvq4q"]
 
 [ext_resource type="Script" path="res://src/states/game/game.gd" id="1_5rnum"]
 [ext_resource type="Script" path="res://src/states/game/pause_menu.gd" id="2_uoyff"]
@@ -10,6 +10,12 @@ outline_color = Color(0, 0, 0, 1)
 shadow_color = Color(1, 1, 1, 0)
 
 [sub_resource type="LabelSettings" id="LabelSettings_vniax"]
+font_size = 48
+font_color = Color(0.243137, 0.560784, 0.529412, 1)
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pc3ya"]
 font_size = 48
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
@@ -56,6 +62,15 @@ label_settings = SubResource("LabelSettings_vniax")
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_layout_mode = 1
+
+[node name="GemDisplay" type="Label" parent="CanvasLayer/Gui"]
+unique_name_in_owner = true
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 93.0
+offset_bottom = 80.0
+text = "0 / 0"
+label_settings = SubResource("LabelSettings_pc3ya")
 
 [node name="PauseMenu" type="ColorRect" parent="CanvasLayer"]
 unique_name_in_owner = true

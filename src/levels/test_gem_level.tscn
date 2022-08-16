@@ -1,0 +1,75 @@
+[gd_scene load_steps=8 format=3 uid="uid://d0t4upx7i3pt6"]
+
+[ext_resource type="Material" uid="uid://dfgky8i28wa1a" path="res://resources/gradient_texture1.tres" id="1_5urrg"]
+[ext_resource type="PackedScene" uid="uid://lo66bw0ph485" path="res://src/objects/start_pad.tscn" id="2_jacbw"]
+[ext_resource type="PackedScene" uid="uid://bjaqttt1hr7fl" path="res://src/objects/gem.tscn" id="3_8oc66"]
+[ext_resource type="PackedScene" uid="uid://5b7m40r8veu5" path="res://src/objects/finish_area.tscn" id="4_hqruu"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a884d"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_7oyqv"]
+sky_material = SubResource("ProceduralSkyMaterial_a884d")
+
+[sub_resource type="Environment" id="Environment_2sooe"]
+background_mode = 2
+sky = SubResource("Sky_7oyqv")
+ambient_light_source = 3
+reflected_light_source = 2
+
+[node name="TestGemLevel" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2sooe")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+directional_shadow_max_distance = 250.0
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+collision_mask = 0
+
+[node name="Floor" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+size = Vector3(16, 0.5, 16)
+material = ExtResource("1_5urrg")
+
+[node name="Ramp1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, -6, 1.75, 11)
+size = Vector3(4, 0.5, 6)
+material = ExtResource("1_5urrg")
+
+[node name="GemPad1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, -6, 3.75, 16)
+size = Vector3(4, 0.5, 4)
+material = ExtResource("1_5urrg")
+
+[node name="GemPad3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, -10, -0.25, 0)
+size = Vector3(4, 0.5, 4)
+material = ExtResource("1_5urrg")
+
+[node name="Ramp2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -6, 1.75, -11)
+size = Vector3(4, 0.5, 6)
+material = ExtResource("1_5urrg")
+
+[node name="GemPad2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, -6, 3.75, -16)
+size = Vector3(4, 0.5, 4)
+material = ExtResource("1_5urrg")
+
+[node name="StartPad" parent="." instance=ExtResource("2_jacbw")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6, 0, 0)
+
+[node name="Gem" parent="." instance=ExtResource("3_8oc66")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 4.6, 16)
+
+[node name="Gem2" parent="." instance=ExtResource("3_8oc66")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 4.6, -16)
+
+[node name="FinishArea" parent="." instance=ExtResource("4_hqruu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
