@@ -12,7 +12,7 @@ var gems_collected := 0
 
 func _ready() -> void:
 	ticks = 0
-	update_timer()
+	update_time_display()
 
 	var level := load(Global.level_path) as PackedScene
 	add_child(level.instantiate())
@@ -38,13 +38,15 @@ func _ready() -> void:
 
 	state = State.WARMUP
 
-	await get_tree().create_timer(1.5).timeout
+	%CountdownTimer.start(1.5)
+	await %CountdownTimer.timeout
 
 	state = State.PLAY
 	%Countdown.text = "Go!"
 	marble.freeze = false
 
-	await get_tree().create_timer(2.0).timeout
+	%CountdownTimer.start(2.0)
+	await %CountdownTimer.timeout
 
 	%Countdown.hide()
 
@@ -52,7 +54,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if state == State.PLAY:
 		ticks += 1
-		update_timer()
+		update_time_display()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -64,7 +66,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_tree().reload_current_scene()
 
 
-func update_timer() -> void:
+func update_time_display() -> void:
 	@warning_ignore(integer_division)
 	var minutes := ticks / (60 * Engine.physics_ticks_per_second)
 	var non_minute_ticks := ticks % (60 * Engine.physics_ticks_per_second)
@@ -73,7 +75,7 @@ func update_timer() -> void:
 	var non_second_ticks := ticks % Engine.physics_ticks_per_second
 	@warning_ignore(integer_division)
 	var milliseconds := non_second_ticks * 1000 / Engine.physics_ticks_per_second
-	%TimerDisplay.text = "%02d:%02d.%03d" % [minutes, seconds, milliseconds]
+	%TimeDisplay.text = "%02d:%02d.%03d" % [minutes, seconds, milliseconds]
 
 
 func update_gem_display() -> void:
