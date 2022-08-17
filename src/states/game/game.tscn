@@ -37,8 +37,9 @@ custom_minimum_size = Vector2(300, 0)
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -150.0
+offset_top = 10.0
 offset_right = 150.0
-offset_bottom = 67.0
+offset_bottom = 80.0
 text = "00:00.000"
 label_settings = SubResource("LabelSettings_jqoxj")
 horizontal_alignment = 1
@@ -68,9 +69,9 @@ unique_name_in_owner = true
 
 [node name="GemDisplay" type="Label" parent="CanvasLayer/Gui"]
 unique_name_in_owner = true
-offset_left = 20.0
+offset_left = 24.0
 offset_top = 10.0
-offset_right = 93.0
+offset_right = 121.0
 offset_bottom = 80.0
 text = "0 / 0"
 label_settings = SubResource("LabelSettings_pc3ya")

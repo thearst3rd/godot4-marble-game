@@ -4,15 +4,19 @@ extends RigidDynamicBody3D
 signal gem_collected
 signal level_finished
 
-const FORCE_MAGNITUDE = 20.0
-const TORQUE_MAGNITUDE = 5.0
+const MOVE_FORCE = 20.0
+const MOVE_TORQUE = 5.0
 const LOOK_SENS = Vector2(0.0025, 0.0025)
 const JUMP_IMPULSE = 13.0
+const FINISH_FORCE = 10.0
 
 var look_direction: Vector3
 var look_direction_raw: Vector3
 
 var jumping := false
+
+var is_level_finished := false
+var finish_point: Vector3
 
 @onready var center_node: Node3D = $CenterNode
 @onready var spring_arm: SpringArm3D = $CenterNode/SpringArm3D
@@ -45,12 +49,17 @@ func _input(event: InputEvent) -> void:
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	if is_level_finished:
+		var diff := finish_point - position
+		apply_central_force(FINISH_FORCE * diff)
+		return
+
 	# We actually don't want to normalize this vector, enabling Marble Blast style diagonal movement
 	var wishdir := Vector2(Input.get_axis("left", "right"), Input.get_axis("forward", "backward"))
 
-	var force_vector := (Vector3(wishdir.x, 0, wishdir.y) * FORCE_MAGNITUDE).rotated(Vector3.UP, look_direction.y)
+	var force_vector := (Vector3(wishdir.x, 0, wishdir.y) * MOVE_FORCE).rotated(Vector3.UP, look_direction.y)
 	apply_central_force(force_vector)
-	var torque_vector := (Vector3(wishdir.y, 0, -wishdir.x) * TORQUE_MAGNITUDE).rotated(Vector3.UP, look_direction.y)
+	var torque_vector := (Vector3(wishdir.y, 0, -wishdir.x) * MOVE_TORQUE).rotated(Vector3.UP, look_direction.y)
 	apply_torque(torque_vector)
 
 	if jumping:
@@ -85,7 +94,10 @@ func is_on_floor(state: PhysicsDirectBodyState3D) -> bool:
 func _on_trigger_entered(area: Area3D) -> void:
 	if area.is_in_group("finish"):
 		emit_signal("level_finished")
-		freeze = true
+		is_level_finished = true
+		finish_point = area.get_node("CollisionShape3D").global_position
+		gravity_scale = 0
+		linear_damp = 3
 	elif area.is_in_group("gem"):
 		area.queue_free()
 		emit_signal("gem_collected")
