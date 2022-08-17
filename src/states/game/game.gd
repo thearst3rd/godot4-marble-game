@@ -32,6 +32,7 @@ func _ready() -> void:
 	else:
 		for finish in get_tree().get_nodes_in_group("finish"):
 			finish.monitorable = false
+			finish.get_node("GPUParticles3D").emitting = false
 		update_gem_display()
 
 	add_child(marble)
@@ -92,3 +93,4 @@ func _on_marble_gem_collected() -> void:
 	if gems_collected >= total_gems:
 		for finish in get_tree().get_nodes_in_group("finish"):
 			finish.set_deferred("monitorable", true)
+			finish.get_node("GPUParticles3D").emitting = true
