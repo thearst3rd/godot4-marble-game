@@ -6,7 +6,8 @@ signal level_finished
 
 const MOVE_FORCE = 20.0
 const MOVE_TORQUE = 5.0
-const LOOK_SENS = Vector2(0.0025, 0.0025)
+const MOUSE_LOOK_SENS = Vector2(0.0025, 0.0025)
+const CONTROLLER_LOOK_SENS = Vector2(4.0, 3.0)
 const JUMP_IMPULSE = 13.0
 const FINISH_FORCE = 10.0
 
@@ -32,8 +33,10 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	center_node.position = position
+	look_direction_raw.y -= CONTROLLER_LOOK_SENS.x * delta * Input.get_axis("camera_left", "camera_right")
+	look_direction_raw.x -= CONTROLLER_LOOK_SENS.y * delta * Input.get_axis("camera_up", "camera_down")
 	look_direction = look_direction_raw
 	look_direction.y = wrapf(look_direction.y, 0, TAU)
 	look_direction.x = clampf(look_direction.x, -PI/2 + 0.1, PI/2)
@@ -44,8 +47,8 @@ func _process(_delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and event is InputEventMouseMotion:
 		get_viewport().set_input_as_handled()
-		look_direction_raw.y -= event.relative.x * LOOK_SENS.x
-		look_direction_raw.x -= event.relative.y * LOOK_SENS.y
+		look_direction_raw.y -= event.relative.x * MOUSE_LOOK_SENS.x
+		look_direction_raw.x -= event.relative.y * MOUSE_LOOK_SENS.y
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
