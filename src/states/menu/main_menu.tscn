@@ -13,9 +13,9 @@ script = ExtResource("1_rbe2p")
 
 [node name="V" type="VBoxContainer" parent="."]
 offset_left = 415.0
-offset_top = 244.0
+offset_top = 225.0
 offset_right = 865.0
-offset_bottom = 475.0
+offset_bottom = 495.0
 theme_override_constants/separation = 24
 
 [node name="Label" type="Label" parent="V"]
@@ -29,7 +29,7 @@ custom_minimum_size = Vector2(200, 0)
 offset_left = 125.0
 offset_top = 122.0
 offset_right = 325.0
-offset_bottom = 231.0
+offset_bottom = 270.0
 size_flags_horizontal = 4
 theme_override_constants/separation = 8
 
@@ -39,18 +39,25 @@ offset_right = 200.0
 offset_bottom = 31.0
 text = "Play"
 
-[node name="CreditsButton" type="Button" parent="V/V"]
+[node name="OptionsButton" type="Button" parent="V/V"]
 offset_top = 39.0
 offset_right = 200.0
 offset_bottom = 70.0
-text = "Credits"
+text = "Options"
 
-[node name="QuitButton" type="Button" parent="V/V"]
+[node name="CreditsButton" type="Button" parent="V/V"]
 offset_top = 78.0
 offset_right = 200.0
 offset_bottom = 109.0
+text = "Credits"
+
+[node name="QuitButton" type="Button" parent="V/V"]
+offset_top = 117.0
+offset_right = 200.0
+offset_bottom = 148.0
 text = "Quit"
 
 [connection signal="pressed" from="V/V/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="V/V/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="V/V/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="V/V/QuitButton" to="." method="_on_quit_button_pressed"]

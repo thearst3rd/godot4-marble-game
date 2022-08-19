@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://dq0242qa1qm1s"]
+
+[ext_resource type="Script" path="res://src/states/menu/options_menu.gd" id="1_b0q2v"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_te0l8"]
+font_size = 59
+
+[node name="OptionsMenu" type="CenterContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_b0q2v")
+
+[node name="V" type="VBoxContainer" parent="."]
+offset_left = 528.0
+offset_top = 282.0
+offset_right = 752.0
+offset_bottom = 437.0
+
+[node name="Title" type="Label" parent="V"]
+offset_right = 224.0
+offset_bottom = 85.0
+text = "Options"
+label_settings = SubResource("LabelSettings_te0l8")
+
+[node name="V" type="VBoxContainer" parent="V"]
+custom_minimum_size = Vector2(200, 0)
+offset_left = 12.0
+offset_top = 89.0
+offset_right = 212.0
+offset_bottom = 155.0
+size_flags_horizontal = 4
+
+[node name="BackButton" type="Button" parent="V/V"]
+unique_name_in_owner = true
+offset_right = 200.0
+offset_bottom = 31.0
+text = "Back"
+
+[node name="FullscreenCheck" type="CheckButton" parent="V/V"]
+unique_name_in_owner = true
+offset_top = 35.0
+offset_right = 200.0
+offset_bottom = 66.0
+text = "Fullscreen"
+
+[connection signal="pressed" from="V/V/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="toggled" from="V/V/FullscreenCheck" to="." method="_on_fullscreen_check_toggled"]

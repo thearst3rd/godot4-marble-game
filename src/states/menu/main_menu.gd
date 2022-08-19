@@ -11,6 +11,11 @@ func _on_play_button_pressed() -> void:
 	assert(not error)
 
 
+func _on_options_button_pressed() -> void:
+	var error := get_tree().change_scene("res://src/states/menu/options_menu.tscn")
+	assert(not error)
+
+
 func _on_credits_button_pressed() -> void:
 	var error := get_tree().change_scene("res://src/states/menu/credits_menu.tscn")
 	assert(not error)
