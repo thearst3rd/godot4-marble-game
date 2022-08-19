@@ -59,6 +59,13 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 
 	# We actually don't want to normalize this vector, enabling Marble Blast style diagonal movement
 	var wishdir := Vector2(Input.get_axis("left", "right"), Input.get_axis("forward", "backward"))
+	# For unmodded controllers, expand the range
+	if Global.expand_analog and wishdir.length() > 0.0:
+		var ang := wrapf(wishdir.angle(), -PI/4, PI/4)
+		var analog_scale := 1 / cos(ang)
+		wishdir *= analog_scale
+		wishdir.x = clampf(wishdir.x, -1.0, 1.0)
+		wishdir.y = clampf(wishdir.y, -1.0, 1.0)
 
 	var force_vector := (Vector3(wishdir.x, 0, wishdir.y) * MOVE_FORCE).rotated(Vector3.UP, look_direction.y)
 	apply_central_force(force_vector)

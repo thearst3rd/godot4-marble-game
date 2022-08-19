@@ -3,6 +3,8 @@ extends Node
 
 var level_path: String
 
+var expand_analog := true
+
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
