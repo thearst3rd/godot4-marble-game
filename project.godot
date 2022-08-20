@@ -8,6 +8,16 @@
 
 config_version=5
 
+_global_script_classes=[{
+"base": "Control",
+"class": &"Gui",
+"language": &"GDScript",
+"path": "res://src/states/game/gui.gd"
+}]
+_global_script_class_icons={
+"Gui": ""
+}
+
 [application]
 
 config/name="MarbleGame"

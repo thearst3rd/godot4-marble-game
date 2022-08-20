@@ -1,121 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://cvg8gsbtjvq4q"]
+[gd_scene load_steps=4 format=3 uid="uid://bujnikkd3cj81"]
 
 [ext_resource type="Script" path="res://src/states/game/game.gd" id="1_5rnum"]
-[ext_resource type="Script" path="res://src/states/game/pause_menu.gd" id="2_uoyff"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_jqoxj"]
-font_size = 48
-outline_size = 8
-outline_color = Color(0, 0, 0, 1)
-shadow_color = Color(1, 1, 1, 0)
-
-[sub_resource type="LabelSettings" id="LabelSettings_vniax"]
-font_size = 48
-font_color = Color(0.243137, 0.560784, 0.529412, 1)
-shadow_color = Color(0, 0, 0, 1)
-shadow_offset = Vector2(3, 3)
-
-[sub_resource type="LabelSettings" id="LabelSettings_pc3ya"]
-font_size = 48
-outline_size = 8
-outline_color = Color(0, 0, 0, 1)
+[ext_resource type="PackedScene" uid="uid://bo1c3m8vgryj" path="res://src/states/game/gui.tscn" id="2_r7v1t"]
+[ext_resource type="PackedScene" uid="uid://2elsj0w1ujyd" path="res://src/states/game/pause_menu.tscn" id="2_y5j2a"]
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_5rnum")
 
+[node name="CountdownTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Gui" type="Control" parent="CanvasLayer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TimeDisplay" type="Label" parent="CanvasLayer/Gui"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 0)
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -150.0
-offset_top = 10.0
-offset_right = 150.0
-offset_bottom = 80.0
-text = "00:00.000"
-label_settings = SubResource("LabelSettings_jqoxj")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Countdown" type="Label" parent="CanvasLayer/Gui"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 100)
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -140.0
-offset_right = 150.0
-offset_bottom = -40.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Ready..."
-label_settings = SubResource("LabelSettings_vniax")
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_layout_mode = 1
-
-[node name="CountdownTimer" type="Timer" parent="CanvasLayer/Gui"]
+[node name="Gui" parent="CanvasLayer" instance=ExtResource("2_r7v1t")]
 unique_name_in_owner = true
 
-[node name="GemDisplay" type="Label" parent="CanvasLayer/Gui"]
-unique_name_in_owner = true
-offset_left = 24.0
-offset_top = 10.0
-offset_right = 121.0
-offset_bottom = 80.0
-text = "0 / 0"
-label_settings = SubResource("LabelSettings_pc3ya")
-
-[node name="PauseMenu" type="ColorRect" parent="CanvasLayer"]
-unique_name_in_owner = true
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("2_y5j2a")]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color(0, 0, 0, 0.392157)
-script = ExtResource("2_uoyff")
-
-[node name="C" type="CenterContainer" parent="CanvasLayer/PauseMenu"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="V" type="VBoxContainer" parent="CanvasLayer/PauseMenu/C"]
-custom_minimum_size = Vector2(200, 0)
-offset_left = 540.0
-offset_top = 305.0
-offset_right = 740.0
-offset_bottom = 414.0
-theme_override_constants/separation = 8
-
-[node name="ResumeButton" type="Button" parent="CanvasLayer/PauseMenu/C/V"]
-unique_name_in_owner = true
-offset_right = 200.0
-offset_bottom = 31.0
-text = "Resume"
-
-[node name="RestartButton" type="Button" parent="CanvasLayer/PauseMenu/C/V"]
-unique_name_in_owner = true
-offset_top = 39.0
-offset_right = 200.0
-offset_bottom = 70.0
-text = "Restart Level"
-
-[node name="ExitButton" type="Button" parent="CanvasLayer/PauseMenu/C/V"]
-unique_name_in_owner = true
-offset_top = 78.0
-offset_right = 200.0
-offset_bottom = 109.0
-text = "Exit Level"
-
-[connection signal="pressed" from="CanvasLayer/PauseMenu/C/V/ResumeButton" to="CanvasLayer/PauseMenu" method="_on_resume_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/PauseMenu/C/V/RestartButton" to="CanvasLayer/PauseMenu" method="_on_restart_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/PauseMenu/C/V/ExitButton" to="CanvasLayer/PauseMenu" method="_on_exit_button_pressed"]

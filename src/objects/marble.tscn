@@ -24,6 +24,7 @@ material = SubResource("StandardMaterial3D_bghqm")
 
 [node name="Marble" type="RigidDynamicBody3D"]
 collision_layer = 2
+collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_qhoku")
 contacts_reported = 3
 contact_monitor = true

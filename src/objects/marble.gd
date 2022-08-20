@@ -46,7 +46,6 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and event is InputEventMouseMotion:
-		get_viewport().set_input_as_handled()
 		look_direction_raw.y -= event.relative.x * MOUSE_LOOK_SENS.x
 		look_direction_raw.x -= event.relative.y * MOUSE_LOOK_SENS.y
 

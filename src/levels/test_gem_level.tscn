@@ -5,23 +5,22 @@
 [ext_resource type="PackedScene" uid="uid://bjaqttt1hr7fl" path="res://src/objects/gem.tscn" id="3_8oc66"]
 [ext_resource type="PackedScene" uid="uid://5b7m40r8veu5" path="res://src/objects/finish_area.tscn" id="4_hqruu"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a884d"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oahxr"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
-[sub_resource type="Sky" id="Sky_7oyqv"]
-sky_material = SubResource("ProceduralSkyMaterial_a884d")
+[sub_resource type="Sky" id="Sky_vcnls"]
+sky_material = SubResource("ProceduralSkyMaterial_oahxr")
 
-[sub_resource type="Environment" id="Environment_2sooe"]
+[sub_resource type="Environment" id="Environment_mhbf2"]
 background_mode = 2
-sky = SubResource("Sky_7oyqv")
-ambient_light_source = 3
-reflected_light_source = 2
+sky = SubResource("Sky_vcnls")
+glow_enabled = true
 
 [node name="TestGemLevel" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_2sooe")
+environment = SubResource("Environment_mhbf2")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)

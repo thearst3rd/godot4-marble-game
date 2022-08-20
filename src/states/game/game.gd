@@ -9,10 +9,12 @@ var ticks: int
 var total_gems := 0
 var gems_collected := 0
 
+@onready var gui: Gui = %Gui
+
 
 func _ready() -> void:
 	ticks = 0
-	update_time_display()
+	gui.update_time_display(ticks)
 
 	var level := load(Global.level_path) as PackedScene
 	add_child(level.instantiate())
@@ -24,38 +26,38 @@ func _ready() -> void:
 	marble.freeze = true
 	marble.connect("level_finished", self._on_marble_level_finished)
 	marble.connect("gem_collected", self._on_marble_gem_collected)
+	marble.get_node("CenterNode/SpringArm3D/Camera3D").current = true
 
 	gems_collected = 0
 	total_gems = get_tree().get_nodes_in_group("gem").size()
-	if total_gems <= 0:
-		%GemDisplay.hide()
-	else:
+	if total_gems > 0:
 		for finish in get_tree().get_nodes_in_group("finish"):
 			finish.monitorable = false
 			finish.get_node("GPUParticles3D").emitting = false
-		update_gem_display()
+	gui.update_gem_display(gems_collected, total_gems)
 
 	add_child(marble)
 
 	state = State.WARMUP
 
+	gui.update_countdown("Ready...")
 	%CountdownTimer.start(1.5)
 	await %CountdownTimer.timeout
 
 	state = State.PLAY
-	%Countdown.text = "Go!"
+	gui.update_countdown("Go!")
 	marble.freeze = false
 
 	%CountdownTimer.start(2.0)
 	await %CountdownTimer.timeout
 
-	%Countdown.hide()
+	gui.update_countdown("")
 
 
 func _physics_process(_delta: float) -> void:
 	if state == State.PLAY:
 		ticks += 1
-		update_time_display()
+		gui.update_time_display(ticks)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -67,29 +69,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_tree().reload_current_scene()
 
 
-func update_time_display() -> void:
-	@warning_ignore(integer_division)
-	var minutes := ticks / (60 * Engine.physics_ticks_per_second)
-	var non_minute_ticks := ticks % (60 * Engine.physics_ticks_per_second)
-	@warning_ignore(integer_division)
-	var seconds := non_minute_ticks / Engine.physics_ticks_per_second
-	var non_second_ticks := ticks % Engine.physics_ticks_per_second
-	@warning_ignore(integer_division)
-	var milliseconds := non_second_ticks * 1000 / Engine.physics_ticks_per_second
-	%TimeDisplay.text = "%02d:%02d.%03d" % [minutes, seconds, milliseconds]
-
-
-func update_gem_display() -> void:
-	%GemDisplay.text = "%d / %d" % [gems_collected, total_gems]
-
-
 func _on_marble_level_finished() -> void:
 	state = State.FINISH
 
 
 func _on_marble_gem_collected() -> void:
 	gems_collected += 1
-	update_gem_display()
+	gui.update_gem_display(gems_collected, total_gems)
 	if gems_collected >= total_gems:
 		for finish in get_tree().get_nodes_in_group("finish"):
 			finish.set_deferred("monitorable", true)
