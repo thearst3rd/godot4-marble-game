@@ -1,4 +1,4 @@
-extends Node3D
+extends Node
 
 
 enum State {WARMUP, PLAY, FINISH}
@@ -9,24 +9,51 @@ var ticks: int
 var total_gems := 0
 var gems_collected := 0
 
-@onready var gui: Gui = %Gui
+var players: Array[Dictionary] = []
 
 
 func _ready() -> void:
+	var level_scene := load(Global.level_path) as PackedScene
+	var level := level_scene.instantiate() as Node3D
+	var start_pad: Node3D = level.find_child("StartPad")
+
+	var num_players := 2
+	for i in range(num_players):
+		var container: SubViewportContainer = preload("res://src/states/game/game_viewport.tscn").instantiate()
+		$Viewports.add_child(container)
+		var viewport: SubViewport = container.get_child(0)
+		if i == 0:
+			viewport.add_child(level)
+		else:
+			viewport.world_3d = players[0].viewport.world_3d
+
+		var marble: RigidDynamicBody3D = preload("res://src/objects/marble.tscn").instantiate()
+		marble.position = start_pad.position + Vector3.UP * 4
+		if num_players > 1:
+			var offset_inc := TAU / num_players
+			marble.position.x += 1.25 * cos(i * offset_inc)
+			marble.position.y += 1.25 * sin(i * offset_inc)
+		marble.rotation = start_pad.rotation
+		marble.freeze = true
+		marble.connect("level_finished", self._on_marble_level_finished)
+		marble.connect("gem_collected", self._on_marble_gem_collected)
+		level.add_child(marble)
+
+		var camera: Camera3D = viewport.get_node("Camera3D")
+		marble.find_child("CameraRemoteTransform").remote_path = camera.get_path()
+
+		var gui: Gui = viewport.get_node("CanvasLayer/Gui")
+
+		players.append({
+			"marble": marble,
+			"viewport": viewport,
+			"camera": camera,
+			"gui": gui,
+		})
+
 	ticks = 0
-	gui.update_time_display(ticks)
-
-	var level := load(Global.level_path) as PackedScene
-	add_child(level.instantiate())
-	var start_pad: Node3D = get_tree().get_first_node_in_group("StartPad")
-
-	var marble: RigidDynamicBody3D = preload("res://src/objects/marble.tscn").instantiate()
-	marble.position = start_pad.position + Vector3.UP * 4
-	marble.rotation = start_pad.rotation
-	marble.freeze = true
-	marble.connect("level_finished", self._on_marble_level_finished)
-	marble.connect("gem_collected", self._on_marble_gem_collected)
-	marble.get_node("CenterNode/SpringArm3D/Camera3D").current = true
+	for player in players:
+		player.gui.update_time_display(ticks)
 
 	gems_collected = 0
 	total_gems = get_tree().get_nodes_in_group("gem").size()
@@ -34,36 +61,39 @@ func _ready() -> void:
 		for finish in get_tree().get_nodes_in_group("finish"):
 			finish.monitorable = false
 			finish.get_node("GPUParticles3D").emitting = false
-	gui.update_gem_display(gems_collected, total_gems)
-
-	add_child(marble)
+	for player in players:
+		player.gui.update_gem_display(gems_collected, total_gems)
 
 	state = State.WARMUP
 
-	gui.update_countdown("Ready...")
+	for player in players:
+		player.gui.update_countdown("Ready...")
 	%CountdownTimer.start(1.5)
 	await %CountdownTimer.timeout
 
 	state = State.PLAY
-	gui.update_countdown("Go!")
-	marble.freeze = false
+	for player in players:
+		player.gui.update_countdown("Go!")
+		player.marble.freeze = false
 
 	%CountdownTimer.start(2.0)
 	await %CountdownTimer.timeout
 
-	gui.update_countdown("")
+	for player in players:
+		player.gui.update_countdown("")
 
 
 func _physics_process(_delta: float) -> void:
 	if state == State.PLAY:
 		ticks += 1
-		gui.update_time_display(ticks)
+		for player in players:
+			player.gui.update_time_display(ticks)
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		get_viewport().set_input_as_handled()
-		%PauseMenu.show_pause_menu()
+		players[0].viewport.find_child("PauseMenu").show_pause_menu()
 	elif event.is_action_pressed("restart"):
 		get_viewport().set_input_as_handled()
 		get_tree().reload_current_scene()
@@ -75,7 +105,8 @@ func _on_marble_level_finished() -> void:
 
 func _on_marble_gem_collected() -> void:
 	gems_collected += 1
-	gui.update_gem_display(gems_collected, total_gems)
+	for player in players:
+		player.gui.update_gem_display(gems_collected, total_gems)
 	if gems_collected >= total_gems:
 		for finish in get_tree().get_nodes_in_group("finish"):
 			finish.set_deferred("monitorable", true)
