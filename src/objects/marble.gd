@@ -36,8 +36,16 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	center_node.position = position
-	look_direction_raw.y -= CONTROLLER_LOOK_SENS.x * delta * Input.get_axis("camera_left", "camera_right")
-	look_direction_raw.x -= CONTROLLER_LOOK_SENS.y * delta * Input.get_axis("camera_up", "camera_down")
+	# Use a workaround to use support both analog+digital actions until
+	# https://github.com/godotengine/godot/issues/45628 gets merged
+	var cameradir := Vector2(
+			maxf(Input.get_action_strength("camera_right"), Input.get_action_strength("camera_right_analog")) \
+					- maxf(Input.get_action_strength("camera_left"), Input.get_action_strength("camera_left_analog")),
+			maxf(Input.get_action_strength("camera_down"), Input.get_action_strength("camera_down_analog")) \
+					- maxf(Input.get_action_strength("camera_up"), Input.get_action_strength("camera_up_analog"))
+	)
+	look_direction_raw.y -= CONTROLLER_LOOK_SENS.x * delta * cameradir.x
+	look_direction_raw.x -= CONTROLLER_LOOK_SENS.y * delta * cameradir.y
 	look_direction = look_direction_raw
 	look_direction.y = wrapf(look_direction.y, 0, TAU)
 	look_direction.x = clampf(look_direction.x, -PI/2 + 0.1, PI/2)
@@ -57,7 +65,14 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		return
 
 	# We actually don't want to normalize this vector, enabling Marble Blast style diagonal movement
-	var wishdir := Vector2(Input.get_axis("left", "right"), Input.get_axis("forward", "backward"))
+	# Also, use a workaround to use support both analog+digital actions until
+	# https://github.com/godotengine/godot/issues/45628 gets merged
+	var wishdir := Vector2(
+			maxf(Input.get_action_strength("right"), Input.get_action_strength("right_analog")) \
+					- maxf(Input.get_action_strength("left"), Input.get_action_strength("left_analog")),
+			maxf(Input.get_action_strength("backward"), Input.get_action_strength("backward_analog")) \
+					- maxf(Input.get_action_strength("forward"), Input.get_action_strength("forward_analog"))
+	)
 	# For unmodded controllers, expand the range
 	if Global.expand_analog and wishdir.length() > 0.0:
 		var ang := wrapf(wishdir.angle(), -PI/4, PI/4)
