@@ -17,7 +17,7 @@ func _ready() -> void:
 	var level := level_scene.instantiate() as Node3D
 	var start_pad: Node3D = level.find_child("StartPad")
 
-	var num_players := 2
+	var num_players := 1
 	for i in range(num_players):
 		var container: SubViewportContainer = preload("res://src/states/game/game_viewport.tscn").instantiate()
 		$Viewports.add_child(container)
@@ -31,8 +31,9 @@ func _ready() -> void:
 		marble.position = start_pad.position + Vector3.UP * 4
 		if num_players > 1:
 			var offset_inc := TAU / num_players
-			marble.position.x += 1.25 * cos(i * offset_inc)
-			marble.position.y += 1.25 * sin(i * offset_inc)
+			var offset := Vector3(1.25 * cos(i * offset_inc), 0, 1.25 * sin(i * offset_inc))
+			offset = offset.rotated(Vector3.UP, -PI + start_pad.rotation.y)
+			marble.position += offset
 		marble.rotation = start_pad.rotation
 		marble.freeze = true
 		marble.connect("level_finished", self._on_marble_level_finished)
@@ -93,7 +94,7 @@ func _physics_process(_delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		get_viewport().set_input_as_handled()
-		players[0].viewport.find_child("PauseMenu").show_pause_menu()
+		%PauseMenu.show_pause_menu()
 	elif event.is_action_pressed("restart"):
 		get_viewport().set_input_as_handled()
 		get_tree().reload_current_scene()

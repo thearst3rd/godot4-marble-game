@@ -1,10 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://i18wusirgw0j"]
+[gd_scene load_steps=2 format=3 uid="uid://i18wusirgw0j"]
 
 [ext_resource type="PackedScene" uid="uid://bo1c3m8vgryj" path="res://src/states/game/gui.tscn" id="1_4afwi"]
-[ext_resource type="PackedScene" uid="uid://2elsj0w1ujyd" path="res://src/states/game/pause_menu.tscn" id="2_5jvtt"]
 
 [node name="GameViewport" type="SubViewportContainer"]
-process_mode = 3
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
@@ -22,6 +20,3 @@ render_target_update_mode = 4
 
 [node name="Gui" parent="SubViewport/CanvasLayer" instance=ExtResource("1_4afwi")]
 unique_name_in_owner = true
-
-[node name="PauseMenu" parent="SubViewport/CanvasLayer" instance=ExtResource("2_5jvtt")]
-visible = false

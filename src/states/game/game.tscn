@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bujnikkd3cj81"]
+[gd_scene load_steps=3 format=3 uid="uid://bujnikkd3cj81"]
 
 [ext_resource type="Script" path="res://src/states/game/game.gd" id="1_5rnum"]
+[ext_resource type="PackedScene" uid="uid://2elsj0w1ujyd" path="res://src/states/game/pause_menu.tscn" id="2_y5j2a"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_5rnum")
@@ -12,3 +13,8 @@ unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme_override_constants/separation = 0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("2_y5j2a")]
+visible = false
