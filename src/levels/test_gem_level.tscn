@@ -36,11 +36,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 size = Vector3(16, 0.5, 16)
 material = ExtResource("1_5urrg")
 
-[node name="Ramp1" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, -6, 1.75, 11)
-size = Vector3(4, 0.5, 6)
-material = ExtResource("1_5urrg")
-
 [node name="GemPad1" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, -6, 3.75, 16)
 size = Vector3(4, 0.5, 4)
@@ -49,11 +44,6 @@ material = ExtResource("1_5urrg")
 [node name="GemPad3" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, -10, -0.25, 0)
 size = Vector3(4, 0.5, 4)
-material = ExtResource("1_5urrg")
-
-[node name="Ramp2" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -6, 1.75, -11)
-size = Vector3(4, 0.5, 6)
 material = ExtResource("1_5urrg")
 
 [node name="GemPad2" type="CSGBox3D" parent="CSGCombiner3D"]
@@ -72,3 +62,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 4.6, -16)
 
 [node name="FinishArea" parent="." instance=ExtResource("4_hqruu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
+
+[node name="CSGCombinerRamp1" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, -6, 1.25, 10)
+use_collision = true
+collision_mask = 0
+
+[node name="Ramp1" type="CSGBox3D" parent="CSGCombinerRamp1"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.19209e-07, 0, 1.19209e-07, 1, 0, 9.53674e-07, 1)
+size = Vector3(4, 0.5, 6)
+material = ExtResource("1_5urrg")
+
+[node name="CSGCombinerRamp2" type="CSGCombiner3D" parent="."]
+transform = Transform3D(-1, 4.37114e-08, -7.57103e-08, 0, 0.866025, 0.5, 8.74228e-08, 0.5, -0.866025, -6, 1.25, -10)
+use_collision = true
+collision_mask = 0
+
+[node name="Ramp1" type="CSGBox3D" parent="CSGCombinerRamp2"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.19209e-07, 0, 1.19209e-07, 1, 0, 9.53674e-07, 1)
+size = Vector3(4, 0.5, 6)
+material = ExtResource("1_5urrg")

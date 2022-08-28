@@ -9,7 +9,7 @@ var ticks: int
 var total_gems := 0
 var gems_collected := 0
 
-var num_players := 2
+var num_players := 1
 var players: Array[Dictionary] = []
 
 
