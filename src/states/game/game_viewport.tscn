@@ -1,13 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://i18wusirgw0j"]
+[gd_scene load_steps=3 format=3 uid="uid://i18wusirgw0j"]
 
+[ext_resource type="Script" path="res://src/states/game/game_viewport.gd" id="1_0aasr"]
 [ext_resource type="PackedScene" uid="uid://bo1c3m8vgryj" path="res://src/states/game/gui.tscn" id="1_4afwi"]
 
-[node name="GameViewport" type="SubViewportContainer"]
+[node name="GameViewport" type="TextureRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-stretch = true
+ignore_texture_size = true
+script = ExtResource("1_0aasr")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 handle_input_locally = false

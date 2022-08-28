@@ -9,6 +9,7 @@ var ticks: int
 var total_gems := 0
 var gems_collected := 0
 
+var num_players := 2
 var players: Array[Dictionary] = []
 
 
@@ -17,11 +18,10 @@ func _ready() -> void:
 	var level := level_scene.instantiate() as Node3D
 	var start_pad: Node3D = level.find_child("StartPad")
 
-	var num_players := 2
 	for i in range(num_players):
-		var container: SubViewportContainer = preload("res://src/states/game/game_viewport.tscn").instantiate()
-		$Viewports.add_child(container)
-		var viewport: SubViewport = container.get_child(0)
+		var viewport_texture: TextureRect = preload("res://src/states/game/game_viewport.tscn").instantiate()
+		$Viewports.add_child(viewport_texture)
+		var viewport: SubViewport = viewport_texture.get_node("SubViewport")
 		if i == 0:
 			viewport.add_child(level)
 		else:
@@ -42,8 +42,9 @@ func _ready() -> void:
 
 		var camera: Camera3D = viewport.get_node("Camera3D")
 		marble.find_child("CameraRemoteTransform").remote_path = camera.get_path()
+		camera.fov += 20 * (num_players - 1)
 
-		var gui: Gui = container.get_node("Gui")
+		var gui: Gui = viewport_texture.get_node("Gui")
 
 		players.append({
 			"marble": marble,

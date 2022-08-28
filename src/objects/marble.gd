@@ -31,6 +31,7 @@ func _ready() -> void:
 	center_node.position = position
 	center_node.rotation = Vector3.ZERO
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Global.connect("mouse_moved", self._on_mouse_moved)
 
 
 func _process(delta: float) -> void:
@@ -44,10 +45,9 @@ func _process(delta: float) -> void:
 	spring_arm.rotation = look_direction
 
 
-func _input(event: InputEvent) -> void:
-	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and event is InputEventMouseMotion:
-		look_direction_raw.y -= event.relative.x * MOUSE_LOOK_SENS.x
-		look_direction_raw.x -= event.relative.y * MOUSE_LOOK_SENS.y
+func _on_mouse_moved(relative: Vector2) -> void:
+	look_direction_raw.y -= relative.x * MOUSE_LOOK_SENS.x
+	look_direction_raw.x -= relative.y * MOUSE_LOOK_SENS.y
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
