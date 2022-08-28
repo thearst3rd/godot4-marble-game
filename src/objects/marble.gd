@@ -6,7 +6,7 @@ signal level_finished
 
 const MOVE_FORCE = 20.0
 const MOVE_TORQUE = 5.0
-const MOUSE_LOOK_SENS = Vector2(0.0025, 0.0025)
+const MOUSE_LOOK_SENS = Vector2(0.0015, 0.0015)
 const CONTROLLER_LOOK_SENS = Vector2(4.0, 3.0)
 const JUMP_IMPULSE = 13.0
 const FINISH_FORCE = 10.0
