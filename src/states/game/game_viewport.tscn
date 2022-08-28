@@ -16,7 +16,6 @@ render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="SubViewport"]
-
-[node name="Gui" parent="SubViewport/CanvasLayer" instance=ExtResource("1_4afwi")]
+[node name="Gui" parent="." instance=ExtResource("1_4afwi")]
 unique_name_in_owner = true
+mouse_filter = 2

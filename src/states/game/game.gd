@@ -17,7 +17,7 @@ func _ready() -> void:
 	var level := level_scene.instantiate() as Node3D
 	var start_pad: Node3D = level.find_child("StartPad")
 
-	var num_players := 1
+	var num_players := 2
 	for i in range(num_players):
 		var container: SubViewportContainer = preload("res://src/states/game/game_viewport.tscn").instantiate()
 		$Viewports.add_child(container)
@@ -43,7 +43,7 @@ func _ready() -> void:
 		var camera: Camera3D = viewport.get_node("Camera3D")
 		marble.find_child("CameraRemoteTransform").remote_path = camera.get_path()
 
-		var gui: Gui = viewport.get_node("CanvasLayer/Gui")
+		var gui: Gui = container.get_node("Gui")
 
 		players.append({
 			"marble": marble,
