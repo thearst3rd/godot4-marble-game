@@ -11,6 +11,8 @@ const CONTROLLER_LOOK_SENS = Vector2(4.0, 3.0)
 const JUMP_IMPULSE = 13.0
 const FINISH_FORCE = 10.0
 
+var player_controller: PlayerController = null
+
 var look_direction: Vector3
 var look_direction_raw: Vector3
 
@@ -31,19 +33,16 @@ func _ready() -> void:
 	center_node.position = position
 	center_node.rotation = Vector3.ZERO
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	Global.connect("mouse_moved", self._on_mouse_moved)
+
+	if player_controller == null:
+		set_player_controller(PlayerController.new())
 
 
 func _process(delta: float) -> void:
 	center_node.position = position
 	# Use a workaround to use support both analog+digital actions until
 	# https://github.com/godotengine/godot/issues/45628 gets merged
-	var cameradir := Vector2(
-			maxf(Input.get_action_strength("camera_right"), Input.get_action_strength("camera_right_analog")) \
-					- maxf(Input.get_action_strength("camera_left"), Input.get_action_strength("camera_left_analog")),
-			maxf(Input.get_action_strength("camera_down"), Input.get_action_strength("camera_down_analog")) \
-					- maxf(Input.get_action_strength("camera_up"), Input.get_action_strength("camera_up_analog"))
-	)
+	var cameradir := player_controller.get_camera_direction()
 	look_direction_raw.y -= CONTROLLER_LOOK_SENS.x * delta * cameradir.x
 	look_direction_raw.x -= CONTROLLER_LOOK_SENS.y * delta * cameradir.y
 	look_direction = look_direction_raw
@@ -67,12 +66,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	# We actually don't want to normalize this vector, enabling Marble Blast style diagonal movement
 	# Also, use a workaround to use support both analog+digital actions until
 	# https://github.com/godotengine/godot/issues/45628 gets merged
-	var wishdir := Vector2(
-			maxf(Input.get_action_strength("right"), Input.get_action_strength("right_analog")) \
-					- maxf(Input.get_action_strength("left"), Input.get_action_strength("left_analog")),
-			maxf(Input.get_action_strength("backward"), Input.get_action_strength("backward_analog")) \
-					- maxf(Input.get_action_strength("forward"), Input.get_action_strength("forward_analog"))
-	)
+	var wishdir := player_controller.get_move_direction()
 	# For unmodded controllers, expand the range
 	if Global.expand_analog and wishdir.length() > 0.0:
 		var ang := wrapf(wishdir.angle(), -PI/4, PI/4)
@@ -89,7 +83,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if jumping:
 		if not is_on_floor(state):
 			jumping = false
-	elif Input.is_action_pressed("jump") and is_on_floor(state):
+	elif player_controller.get_action("jump") and is_on_floor(state):
 		# Get jump angle
 		var jump_vector = Vector3.ZERO
 		for contact in state.get_contact_count():
@@ -125,3 +119,10 @@ func _on_trigger_entered(area: Area3D) -> void:
 	elif area.is_in_group("gem"):
 		area.queue_free()
 		emit_signal("gem_collected")
+
+
+func set_player_controller(new_controller: PlayerController) -> void:
+	if player_controller != null:
+		player_controller.queue_free()
+	player_controller = new_controller
+	new_controller.connect("mouse_moved", self._on_mouse_moved)

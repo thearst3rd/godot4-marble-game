@@ -9,7 +9,7 @@ var ticks: int
 var total_gems := 0
 var gems_collected := 0
 
-var num_players := 1
+var num_players := 2
 var players: Array[Dictionary] = []
 
 
@@ -39,6 +39,13 @@ func _ready() -> void:
 		marble.connect("level_finished", self._on_marble_level_finished)
 		marble.connect("gem_collected", self._on_marble_gem_collected)
 		level.add_child(marble)
+
+		if num_players > 1:
+			var controller := PlayerController.new()
+			controller.uses_all_devices = false
+			controller.which_device = i - 1
+
+			marble.set_player_controller(controller)
 
 		var camera: Camera3D = viewport.get_node("Camera3D")
 		marble.find_child("CameraRemoteTransform").remote_path = camera.get_path()
@@ -96,7 +103,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		get_viewport().set_input_as_handled()
 		%PauseMenu.show_pause_menu()
-	elif event.is_action_pressed("restart"):
+	elif event.is_action_pressed("restart") or event.is_action_pressed("restart_controller"):
 		get_viewport().set_input_as_handled()
 		get_tree().reload_current_scene()
 
