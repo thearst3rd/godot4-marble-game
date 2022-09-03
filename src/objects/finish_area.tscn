@@ -24,7 +24,7 @@ point_count = 4
 [sub_resource type="CurveTexture" id="CurveTexture_ura66"]
 curve = SubResource("Curve_8a23i")
 
-[sub_resource type="ParticlesMaterial" id="ParticlesMaterial_w55ea"]
+[sub_resource type="ParticleProcessMaterial" id="ParticlesMaterial_w55ea"]
 emission_shape = 3
 emission_box_extents = Vector3(1, 2.5, 1)
 spread = 180.0

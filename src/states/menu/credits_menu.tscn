@@ -9,6 +9,8 @@ font_size = 69
 font_size = 36
 
 [node name="CreditsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("1_bo6n4")
@@ -16,6 +18,7 @@ script = ExtResource("1_bo6n4")
 [node name="BackButton" type="Button" parent="."]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
+layout_mode = 0
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 116.0
@@ -23,6 +26,7 @@ offset_bottom = 47.0
 text = "Back"
 
 [node name="Credits" type="Control" parent="."]
+layout_mode = 1
 anchor_right = 0.394
 anchor_bottom = 1.0
 offset_left = 16.0
@@ -35,11 +39,14 @@ metadata/_edit_layout_mode = 1
 metadata/_edit_use_custom_anchors = true
 
 [node name="V" type="VBoxContainer" parent="Credits"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 alignment = 1
 
 [node name="Title" type="Label" parent="Credits/V"]
+layout_mode = 2
 offset_top = 256.0
 offset_right = 479.0
 offset_bottom = 354.0
@@ -48,6 +55,7 @@ label_settings = SubResource("LabelSettings_vdnnc")
 horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="Credits/V"]
+layout_mode = 2
 offset_top = 358.0
 offset_right = 479.0
 offset_bottom = 384.0
@@ -56,6 +64,8 @@ text = "Terry Hearst - Everything so far lol"
 horizontal_alignment = 1
 
 [node name="Licenses" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.394
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -69,6 +79,8 @@ metadata/_edit_layout_mode = 1
 metadata/_edit_use_custom_anchors = true
 
 [node name="Title" type="Label" parent="Licenses"]
+layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
 offset_top = 8.0
 offset_bottom = 61.0
@@ -78,6 +90,8 @@ horizontal_alignment = 1
 
 [node name="LicensesText" type="RichTextLabel" parent="Licenses"]
 unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0

@@ -9,7 +9,7 @@ var ticks: int
 var total_gems := 0
 var gems_collected := 0
 
-var num_players := 2
+var num_players := 1
 var players: Array[Dictionary] = []
 
 
@@ -27,7 +27,7 @@ func _ready() -> void:
 		else:
 			viewport.world_3d = players[0].viewport.world_3d
 
-		var marble: RigidDynamicBody3D = preload("res://src/objects/marble.tscn").instantiate()
+		var marble: RigidBody3D = preload("res://src/objects/marble.tscn").instantiate()
 		marble.position = start_pad.position + Vector3.UP * 4
 		if num_players > 1:
 			var offset_inc := TAU / num_players

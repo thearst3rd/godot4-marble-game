@@ -5,17 +5,21 @@
 [node name="PauseMenu" type="ColorRect"]
 unique_name_in_owner = true
 process_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0, 0, 0, 0.392157)
 script = ExtResource("1_7evty")
 
 [node name="C" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="V" type="VBoxContainer" parent="C"]
 custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
 offset_left = 540.0
 offset_top = 305.0
 offset_right = 740.0
@@ -24,12 +28,14 @@ theme_override_constants/separation = 8
 
 [node name="ResumeButton" type="Button" parent="C/V"]
 unique_name_in_owner = true
+layout_mode = 2
 offset_right = 200.0
 offset_bottom = 31.0
 text = "Resume"
 
 [node name="RestartButton" type="Button" parent="C/V"]
 unique_name_in_owner = true
+layout_mode = 2
 offset_top = 39.0
 offset_right = 200.0
 offset_bottom = 70.0
@@ -37,6 +43,7 @@ text = "Restart Level"
 
 [node name="ExitButton" type="Button" parent="C/V"]
 unique_name_in_owner = true
+layout_mode = 2
 offset_top = 78.0
 offset_right = 200.0
 offset_bottom = 109.0

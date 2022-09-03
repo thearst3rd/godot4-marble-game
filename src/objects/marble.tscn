@@ -7,7 +7,7 @@ bounce = 0.5
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_jlkpd"]
 
-[sub_resource type="NoiseTexture" id="NoiseTexture_ivi28"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture_ivi28"]
 height = 256
 seamless = true
 noise = SubResource("FastNoiseLite_jlkpd")
@@ -22,11 +22,11 @@ material = SubResource("StandardMaterial3D_bghqm")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ggn7h"]
 
-[node name="Marble" type="RigidDynamicBody3D"]
+[node name="Marble" type="RigidBody3D"]
 collision_layer = 2
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_qhoku")
-contacts_reported = 3
+max_contacts_reported = 16
 contact_monitor = true
 linear_damp = 0.2
 angular_damp = 0.25
