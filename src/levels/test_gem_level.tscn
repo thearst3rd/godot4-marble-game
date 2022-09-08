@@ -61,7 +61,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 4.6, 16)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 4.6, -16)
 
 [node name="FinishArea" parent="." instance=ExtResource("4_hqruu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3, 0)
 
 [node name="CSGCombinerRamp1" type="CSGCombiner3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, -6, 1.25, 10)

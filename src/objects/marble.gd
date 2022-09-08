@@ -113,7 +113,7 @@ func _on_trigger_entered(area: Area3D) -> void:
 	if area.is_in_group("finish"):
 		emit_signal("level_finished")
 		is_level_finished = true
-		finish_point = area.get_node("CollisionShape3D").global_position
+		finish_point = area.position
 		gravity_scale = 0
 		linear_damp = 3
 	elif area.is_in_group("gem"):
