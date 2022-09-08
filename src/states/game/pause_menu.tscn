@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://2elsj0w1ujyd"]
+[gd_scene load_steps=3 format=3 uid="uid://2elsj0w1ujyd"]
 
 [ext_resource type="Script" path="res://src/states/game/pause_menu.gd" id="1_7evty"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bco2c"]
+font_size = 48
 
 [node name="PauseMenu" type="ColorRect"]
 unique_name_in_owner = true
@@ -8,47 +11,70 @@ process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0, 0, 0, 0.392157)
 script = ExtResource("1_7evty")
 
-[node name="C" type="CenterContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = -1
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 488.0
+offset_bottom = -12.0
+grow_vertical = 2
+
+[node name="C" type="CenterContainer" parent="Panel"]
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="V" type="VBoxContainer" parent="C"]
+[node name="V" type="VBoxContainer" parent="Panel/C"]
+offset_left = 138.0
+offset_top = 246.0
+offset_right = 338.0
+offset_bottom = 449.0
+theme_override_constants/separation = 24
+
+[node name="Label" type="Label" parent="Panel/C/V"]
+offset_right = 200.0
+offset_bottom = 70.0
+text = "Paused
+"
+label_settings = SubResource("LabelSettings_bco2c")
+horizontal_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="Panel/C/V"]
 custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-offset_left = 540.0
-offset_top = 305.0
-offset_right = 740.0
-offset_bottom = 414.0
+offset_top = 94.0
+offset_right = 200.0
+offset_bottom = 203.0
+size_flags_horizontal = 4
 theme_override_constants/separation = 8
 
-[node name="ResumeButton" type="Button" parent="C/V"]
+[node name="ResumeButton" type="Button" parent="Panel/C/V/Buttons"]
 unique_name_in_owner = true
-layout_mode = 2
 offset_right = 200.0
 offset_bottom = 31.0
 text = "Resume"
 
-[node name="RestartButton" type="Button" parent="C/V"]
+[node name="RestartButton" type="Button" parent="Panel/C/V/Buttons"]
 unique_name_in_owner = true
-layout_mode = 2
 offset_top = 39.0
 offset_right = 200.0
 offset_bottom = 70.0
 text = "Restart Level"
 
-[node name="ExitButton" type="Button" parent="C/V"]
+[node name="ExitButton" type="Button" parent="Panel/C/V/Buttons"]
 unique_name_in_owner = true
-layout_mode = 2
 offset_top = 78.0
 offset_right = 200.0
 offset_bottom = 109.0
 text = "Exit Level"
 
-[connection signal="pressed" from="C/V/ResumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="C/V/RestartButton" to="." method="_on_restart_button_pressed"]
-[connection signal="pressed" from="C/V/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="Panel/C/V/Buttons/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Panel/C/V/Buttons/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="Panel/C/V/Buttons/ExitButton" to="." method="_on_exit_button_pressed"]
