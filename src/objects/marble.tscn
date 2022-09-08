@@ -41,7 +41,7 @@ shape = SubResource("SphereShape3D_ggn7h")
 [node name="CenterNode" type="Node3D" parent="."]
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CenterNode"]
-transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0, 0)
 spring_length = 5.0
 margin = 0.1
 
