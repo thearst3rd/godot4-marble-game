@@ -15,5 +15,5 @@ func _process(delta: float) -> void:
 
 
 func _on_back_button_pressed() -> void:
-	var error := get_tree().change_scene("res://src/states/menu/main_menu.tscn")
+	var error := get_tree().change_scene_to_file("res://src/states/menu/main_menu.tscn")
 	assert(not error)

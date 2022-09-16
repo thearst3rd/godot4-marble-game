@@ -15,17 +15,20 @@ grow_vertical = 2
 script = ExtResource("1_rbe2p")
 
 [node name="C" type="CenterContainer" parent="."]
+layout_mode = 2
 offset_right = 510.0
 offset_bottom = 720.0
 size_flags_horizontal = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="C"]
+layout_mode = 2
 offset_left = 145.0
 offset_top = 276.0
 offset_right = 365.0
 offset_bottom = 444.0
 
 [node name="MarginContainer" type="MarginContainer" parent="C/PanelContainer"]
+layout_mode = 2
 offset_right = 220.0
 offset_bottom = 168.0
 theme_override_constants/margin_left = 10
@@ -34,7 +37,8 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="V" type="VBoxContainer" parent="C/PanelContainer/MarginContainer"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2i(200, 0)
+layout_mode = 2
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 210.0
@@ -46,29 +50,34 @@ theme_override_constants/separation = 8
 
 [node name="PlayButton" type="Button" parent="C/PanelContainer/MarginContainer/V"]
 unique_name_in_owner = true
+layout_mode = 2
 offset_right = 200.0
 offset_bottom = 31.0
 text = "Play"
 
 [node name="OptionsButton" type="Button" parent="C/PanelContainer/MarginContainer/V"]
+layout_mode = 2
 offset_top = 39.0
 offset_right = 200.0
 offset_bottom = 70.0
 text = "Options"
 
 [node name="CreditsButton" type="Button" parent="C/PanelContainer/MarginContainer/V"]
+layout_mode = 2
 offset_top = 78.0
 offset_right = 200.0
 offset_bottom = 109.0
 text = "Credits"
 
 [node name="QuitButton" type="Button" parent="C/PanelContainer/MarginContainer/V"]
+layout_mode = 2
 offset_top = 117.0
 offset_right = 200.0
 offset_bottom = 148.0
 text = "Quit"
 
 [node name="C2" type="CenterContainer" parent="."]
+layout_mode = 2
 offset_left = 514.0
 offset_right = 1280.0
 offset_bottom = 720.0
@@ -76,6 +85,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.5
 
 [node name="Label" type="Label" parent="C2"]
+layout_mode = 2
 offset_left = 158.0
 offset_top = 311.0
 offset_right = 608.0
