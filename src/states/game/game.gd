@@ -69,7 +69,6 @@ func _ready() -> void:
 	if total_gems > 0:
 		for finish in get_tree().get_nodes_in_group("finish"):
 			finish.monitorable = false
-			finish.get_node("GPUParticles3D").emitting = false
 	for player in players:
 		player.gui.update_gem_display(gems_collected, total_gems)
 
@@ -119,4 +118,3 @@ func _on_marble_gem_collected() -> void:
 	if gems_collected >= total_gems:
 		for finish in get_tree().get_nodes_in_group("finish"):
 			finish.set_deferred("monitorable", true)
-			finish.get_node("GPUParticles3D").emitting = true
