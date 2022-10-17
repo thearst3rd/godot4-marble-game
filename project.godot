@@ -28,7 +28,7 @@ _global_script_class_icons={
 
 config/name="MarbleGame"
 run/main_scene="res://src/states/menu/main_menu.tscn"
-config/features=PackedStringArray("4.0", "Vulkan Clustered")
+config/features=PackedStringArray("4.0")
 config/icon="res://icon.png"
 
 [autoload]
