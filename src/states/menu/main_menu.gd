@@ -6,8 +6,7 @@ func _ready() -> void:
 
 
 func _on_play_button_pressed() -> void:
-	Global.level_path = "res://src/levels/test_gem_level.tscn"
-	var error := get_tree().change_scene_to_file("res://src/states/game/game.tscn")
+	var error := get_tree().change_scene_to_file("res://src/states/menu/level_select_menu.tscn")
 	assert(not error)
 
 
