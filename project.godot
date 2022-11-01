@@ -14,6 +14,11 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://src/states/game/gui.gd"
 }, {
+"base": "Node3D",
+"class": &"Level",
+"language": &"GDScript",
+"path": "res://src/scripts/level.gd"
+}, {
 "base": "Node",
 "class": &"PlayerController",
 "language": &"GDScript",
@@ -21,6 +26,7 @@ _global_script_classes=[{
 }]
 _global_script_class_icons={
 "Gui": "",
+"Level": "",
 "PlayerController": ""
 }
 

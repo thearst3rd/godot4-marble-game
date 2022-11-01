@@ -15,7 +15,7 @@ var players: Array[Dictionary] = []
 
 func _ready() -> void:
 	var level_scene := load(Global.level_path) as PackedScene
-	var level := level_scene.instantiate() as Node3D
+	var level := level_scene.instantiate() as Level
 	var start_pad: Node3D = level.find_child("StartPad")
 
 	for i in range(num_players):

@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0t4upx7i3pt6"]
+[gd_scene load_steps=9 format=3 uid="uid://d0t4upx7i3pt6"]
 
 [ext_resource type="Material" uid="uid://dfgky8i28wa1a" path="res://resources/gradient_texture1.tres" id="1_5urrg"]
+[ext_resource type="Script" path="res://src/scripts/level.gd" id="1_6w6w0"]
 [ext_resource type="PackedScene" uid="uid://lo66bw0ph485" path="res://src/objects/start_pad.tscn" id="2_jacbw"]
 [ext_resource type="PackedScene" uid="uid://bjaqttt1hr7fl" path="res://src/objects/gem.tscn" id="3_8oc66"]
 [ext_resource type="PackedScene" uid="uid://5b7m40r8veu5" path="res://src/objects/finish_area.tscn" id="4_hqruu"]
@@ -18,6 +19,9 @@ sky = SubResource("Sky_vcnls")
 glow_enabled = true
 
 [node name="TestGemLevel" type="Node3D"]
+script = ExtResource("1_6w6w0")
+level_name = "First Gems"
+level_author = "Terry Hearst"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_mhbf2")
