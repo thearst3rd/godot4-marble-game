@@ -110,15 +110,21 @@ func is_on_floor(state: PhysicsDirectBodyState3D) -> bool:
 
 
 func _on_trigger_entered(area: Area3D) -> void:
+	if is_level_finished:
+		return
 	if area.is_in_group("finish"):
 		emit_signal("level_finished")
-		is_level_finished = true
-		finish_point = area.position
-		gravity_scale = 0
-		linear_damp = 3
+		do_finish_effect(area.position)
 	elif area.is_in_group("gem"):
 		area.queue_free()
 		emit_signal("gem_collected")
+
+
+func do_finish_effect(position: Vector3):
+	is_level_finished = true
+	finish_point = position
+	gravity_scale = 0
+	linear_damp = 3
 
 
 func set_player_controller(new_controller: PlayerController) -> void:

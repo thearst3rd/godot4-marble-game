@@ -166,12 +166,39 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
 size = Vector3(4, 1, 2)
 material = ExtResource("2_wsrv0")
 
+[node name="Gem" parent="CSGCombiner3D/Corner3" instance=ExtResource("3_chb4f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Gem2" parent="CSGCombiner3D/Corner3" instance=ExtResource("3_chb4f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 3)
+
+[node name="Gem3" parent="CSGCombiner3D/Corner3" instance=ExtResource("3_chb4f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 1)
+
+[node name="Gem4" parent="CSGCombiner3D/Corner3" instance=ExtResource("3_chb4f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, 3)
+
+[node name="Gem5" parent="CSGCombiner3D/Corner3" instance=ExtResource("3_chb4f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 3)
+
+[node name="Gem6" parent="CSGCombiner3D/Corner3" instance=ExtResource("3_chb4f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, -1)
+
+[node name="Gem7" parent="CSGCombiner3D/Corner3" instance=ExtResource("3_chb4f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, -3)
+
 [node name="Corner4Cylinder1" type="CSGCylinder3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 2, 14)
 radius = 2.0
 height = 4.0
 sides = 16
 material = ExtResource("2_wsrv0")
+
+[node name="Gem" parent="CSGCombiner3D/Corner4Cylinder1" instance=ExtResource("3_chb4f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.667, 2.5, -0.667)
+
+[node name="Gem2" parent="CSGCombiner3D/Corner4Cylinder1" instance=ExtResource("3_chb4f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.667, 2.5, 0.667)
 
 [node name="Corner4Cylinder2" type="CSGCylinder3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 1.5, 10)
@@ -180,11 +207,17 @@ height = 3.0
 sides = 16
 material = ExtResource("2_wsrv0")
 
+[node name="Gem" parent="CSGCombiner3D/Corner4Cylinder2" instance=ExtResource("3_chb4f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
 [node name="Corner4Cylinder3" type="CSGCylinder3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 10)
 radius = 1.5
 sides = 16
 material = ExtResource("2_wsrv0")
+
+[node name="Gem" parent="CSGCombiner3D/Corner4Cylinder3" instance=ExtResource("3_chb4f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Corner4Cylinder4" type="CSGCylinder3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.5, 14)
@@ -192,6 +225,9 @@ radius = 1.5
 height = 1.0
 sides = 16
 material = ExtResource("2_wsrv0")
+
+[node name="Gem" parent="CSGCombiner3D/Corner4Cylinder4" instance=ExtResource("3_chb4f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="PlayerSpawns" type="Node" parent="."]
 

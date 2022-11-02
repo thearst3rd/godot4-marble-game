@@ -88,6 +88,12 @@ func _ready() -> void:
 	gems_collected = 0
 	if gem_hunt:
 		total_gems = -1
+		for gem in get_tree().get_nodes_in_group("gem"):
+			var global_pos = gem.global_position
+			gem.get_parent().remove_child(gem)
+			gem.position = global_pos
+			gem_hunt_gems.append(gem)
+		spawn_gem_cluster()
 	else:
 		total_gems = get_tree().get_nodes_in_group("gem").size()
 		if total_gems > 0:
@@ -118,6 +124,10 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if state == State.PLAY:
 		ticks += 1
+		if gem_hunt and ticks >= time_limit_ticks:
+			state = State.FINISH
+			for player in players:
+				player.marble.do_finish_effect(player.marble.position)
 		for player in players:
 			player.gui.update_time_display((time_limit_ticks - ticks) if gem_hunt else ticks)
 
@@ -148,3 +158,20 @@ func _on_marble_gem_collected_hunt(index: int, value := 1) -> void:
 	var player = players[index]
 	player.score += value
 	player.gui.update_gem_display(player.score)
+	var should_spawn_gems = true
+	for gem in get_tree().get_nodes_in_group("gem"):
+		if not gem.is_queued_for_deletion():
+			should_spawn_gems = false
+	if should_spawn_gems:
+		spawn_gem_cluster()
+
+
+func spawn_gem_cluster() -> void:
+	var starting_gem = gem_hunt_gems[randi_range(0, gem_hunt_gems.size() - 1)] as Node3D
+	add_child(starting_gem.duplicate())
+	for gem_raw in gem_hunt_gems:
+		var gem = gem_raw as Node3D
+		if gem == starting_gem:
+			continue
+		if gem.position.distance_to(starting_gem.position) <= 5:
+			add_child(gem.duplicate())
