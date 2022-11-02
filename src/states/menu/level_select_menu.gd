@@ -5,6 +5,7 @@ extends CenterContainer
 const LEVELS = [
 	"res://src/levels/test_level.tscn",
 	"res://src/levels/test_gem_level.tscn",
+	"res://src/levels/test_hunt_level.tscn",
 ]
 
 

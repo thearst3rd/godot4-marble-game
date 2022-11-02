@@ -12,11 +12,23 @@ var gems_collected := 0
 var num_players := 1
 var players: Array[Dictionary] = []
 
+var gem_hunt := false
+var gem_hunt_spawns: Array[Node] = []
+var gem_hunt_gems: Array[Node] = []
+var time_limit_ticks: int
+
 
 func _ready() -> void:
 	var level_scene := load(Global.level_path) as PackedScene
 	var level := level_scene.instantiate() as Level
-	var start_pad: Node3D = level.find_child("StartPad")
+
+	var start_pad: Node3D
+	gem_hunt = level.gem_hunt
+	if gem_hunt:
+		gem_hunt_spawns = level.find_child("PlayerSpawns").get_children()
+		time_limit_ticks = roundi(level.time_limit * Engine.physics_ticks_per_second)
+	else:
+		start_pad = level.find_child("StartPad")
 
 	for i in range(num_players):
 		var viewport_texture: TextureRect = preload("res://src/states/game/game_viewport.tscn").instantiate()
@@ -28,16 +40,22 @@ func _ready() -> void:
 			viewport.world_3d = players[0].viewport.world_3d
 
 		var marble: RigidBody3D = preload("res://src/objects/marble.tscn").instantiate()
-		marble.position = start_pad.position + Vector3.UP * 4
-		if num_players > 1:
-			var offset_inc := TAU / num_players
-			var offset := Vector3(1.25 * cos(i * offset_inc), 0, 1.25 * sin(i * offset_inc))
-			offset = offset.rotated(Vector3.UP, -PI + start_pad.rotation.y)
-			marble.position += offset
-		marble.rotation = start_pad.rotation
+		if gem_hunt:
+			var spawn_point := gem_hunt_spawns[randi_range(0, gem_hunt_spawns.size() - 1)] as Marker3D
+			marble.position = spawn_point.position
+			marble.rotation = spawn_point.rotation
+			marble.connect("gem_collected", self._on_marble_gem_collected_hunt.bind(i))
+		else:
+			marble.position = start_pad.position + Vector3.UP * 4
+			if num_players > 1:
+				var offset_inc := TAU / num_players
+				var offset := Vector3(1.25 * cos(i * offset_inc), 0, 1.25 * sin(i * offset_inc))
+				offset = offset.rotated(Vector3.UP, -PI + start_pad.rotation.y)
+				marble.position += offset
+			marble.rotation = start_pad.rotation
+			marble.connect("gem_collected", self._on_marble_gem_collected)
+			marble.connect("level_finished", self._on_marble_level_finished)
 		marble.freeze = true
-		marble.connect("level_finished", self._on_marble_level_finished)
-		marble.connect("gem_collected", self._on_marble_gem_collected)
 		level.add_child(marble)
 
 		if num_players > 1:
@@ -53,22 +71,28 @@ func _ready() -> void:
 
 		var gui: Gui = viewport_texture.get_node("Gui")
 
-		players.append({
+		var player_dict := {
 			"marble": marble,
 			"viewport": viewport,
 			"camera": camera,
 			"gui": gui,
-		})
+		}
+		if gem_hunt:
+			player_dict["score"] = 0
+		players.append(player_dict)
 
 	ticks = 0
 	for player in players:
-		player.gui.update_time_display(ticks)
+		player.gui.update_time_display((time_limit_ticks - ticks) if gem_hunt else ticks)
 
 	gems_collected = 0
-	total_gems = get_tree().get_nodes_in_group("gem").size()
-	if total_gems > 0:
-		for finish in get_tree().get_nodes_in_group("finish"):
-			finish.monitorable = false
+	if gem_hunt:
+		total_gems = -1
+	else:
+		total_gems = get_tree().get_nodes_in_group("gem").size()
+		if total_gems > 0:
+			for finish in get_tree().get_nodes_in_group("finish"):
+				finish.monitorable = false
 	for player in players:
 		player.gui.update_gem_display(gems_collected, total_gems)
 
@@ -95,7 +119,7 @@ func _physics_process(_delta: float) -> void:
 	if state == State.PLAY:
 		ticks += 1
 		for player in players:
-			player.gui.update_time_display(ticks)
+			player.gui.update_time_display((time_limit_ticks - ticks) if gem_hunt else ticks)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -118,3 +142,9 @@ func _on_marble_gem_collected() -> void:
 	if gems_collected >= total_gems:
 		for finish in get_tree().get_nodes_in_group("finish"):
 			finish.set_deferred("monitorable", true)
+
+
+func _on_marble_gem_collected_hunt(index: int, value := 1) -> void:
+	var player = players[index]
+	player.score += value
+	player.gui.update_gem_display(player.score)
