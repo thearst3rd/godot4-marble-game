@@ -120,9 +120,9 @@ func _on_trigger_entered(area: Area3D) -> void:
 		emit_signal("gem_collected")
 
 
-func do_finish_effect(position: Vector3):
+func do_finish_effect(finish_pos: Vector3):
 	is_level_finished = true
-	finish_point = position
+	finish_point = finish_pos
 	gravity_scale = 0
 	linear_damp = 3
 
