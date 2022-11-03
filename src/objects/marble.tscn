@@ -26,10 +26,9 @@ material = SubResource("StandardMaterial3D_bghqm")
 collision_layer = 2
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_qhoku")
+continuous_cd = true
 max_contacts_reported = 16
 contact_monitor = true
-linear_damp = 0.2
-angular_damp = 0.25
 script = ExtResource("1_ajff0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
