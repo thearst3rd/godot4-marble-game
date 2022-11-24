@@ -2,40 +2,40 @@
 
 [ext_resource type="Script" path="res://src/objects/marble.gd" id="1_ajff0"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qhoku"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8iv5t"]
 bounce = 0.5
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_jlkpd"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_j0px3"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture_ivi28"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ylatn"]
 height = 256
 seamless = true
-noise = SubResource("FastNoiseLite_jlkpd")
+noise = SubResource("FastNoiseLite_j0px3")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bghqm"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sn3la"]
 albedo_color = Color(1, 0.505882, 1, 1)
-albedo_texture = SubResource("NoiseTexture_ivi28")
+albedo_texture = SubResource("NoiseTexture2D_ylatn")
 roughness = 0.6
 
-[sub_resource type="SphereMesh" id="SphereMesh_bodwk"]
-material = SubResource("StandardMaterial3D_bghqm")
+[sub_resource type="SphereMesh" id="SphereMesh_lipxa"]
+material = SubResource("StandardMaterial3D_sn3la")
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_ggn7h"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_htqsx"]
 
 [node name="Marble" type="RigidBody3D"]
 collision_layer = 2
 collision_mask = 3
-physics_material_override = SubResource("PhysicsMaterial_qhoku")
+physics_material_override = SubResource("PhysicsMaterial_8iv5t")
 continuous_cd = true
 max_contacts_reported = 16
 contact_monitor = true
 script = ExtResource("1_ajff0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_bodwk")
+mesh = SubResource("SphereMesh_lipxa")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_ggn7h")
+shape = SubResource("SphereShape3D_htqsx")
 
 [node name="CenterNode" type="Node3D" parent="."]
 
@@ -52,6 +52,6 @@ collision_mask = 12
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerDetector"]
-shape = SubResource("SphereShape3D_ggn7h")
+shape = SubResource("SphereShape3D_htqsx")
 
 [connection signal="area_entered" from="TriggerDetector" to="." method="_on_trigger_entered"]

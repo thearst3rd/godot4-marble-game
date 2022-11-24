@@ -37,7 +37,7 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="V" type="VBoxContainer" parent="C/PanelContainer/MarginContainer"]
-custom_minimum_size = Vector2i(200, 0)
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 offset_left = 10.0
 offset_top = 10.0

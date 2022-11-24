@@ -52,7 +52,7 @@ label_settings = SubResource("LabelSettings_bco2c")
 horizontal_alignment = 1
 
 [node name="Buttons" type="VBoxContainer" parent="Panel/C/V"]
-custom_minimum_size = Vector2i(200, 0)
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 offset_top = 94.0
 offset_right = 200.0
