@@ -31,10 +31,8 @@ func _ready() -> void:
 
 func play_level(path: String) -> void:
 	Global.level_path = path
-	var error := get_tree().change_scene_to_file("res://src/states/game/game.tscn")
-	assert(not error)
+	get_tree().change_scene_to_file("res://src/states/game/game.tscn")
 
 
 func back_to_menu() -> void:
-	var error := get_tree().change_scene_to_file("res://src/states/menu/main_menu.tscn")
-	assert(not error)
+	get_tree().change_scene_to_file("res://src/states/menu/main_menu.tscn")

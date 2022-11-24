@@ -48,5 +48,4 @@ func _on_restart_button_pressed() -> void:
 
 func _on_exit_button_pressed() -> void:
 	get_tree().paused = false
-	var error := get_tree().change_scene_to_file("res://src/states/menu/level_select_menu.tscn")
-	assert(not error)
+	get_tree().change_scene_to_file("res://src/states/menu/level_select_menu.tscn")
