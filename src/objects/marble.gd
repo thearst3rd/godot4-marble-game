@@ -39,6 +39,11 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if is_level_finished:
+		center_node.position = lerp(center_node.position, finish_point, delta)
+		spring_arm.rotation.x = lerp(spring_arm.rotation.x, deg_to_rad(-25), 3 * delta)
+		return
+
 	center_node.position = position
 	# Use a workaround to use support both analog+digital actions until
 	# https://github.com/godotengine/godot/issues/45628 gets merged
@@ -53,8 +58,9 @@ func _process(delta: float) -> void:
 
 
 func _on_mouse_moved(relative: Vector2) -> void:
-	look_direction_raw.y -= relative.x * MOUSE_LOOK_SENS.x
-	look_direction_raw.x -= relative.y * MOUSE_LOOK_SENS.y
+	if not is_level_finished:
+		look_direction_raw.y -= relative.x * MOUSE_LOOK_SENS.x
+		look_direction_raw.x -= relative.y * MOUSE_LOOK_SENS.y
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
