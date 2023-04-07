@@ -18,4 +18,5 @@ func _on_credits_button_pressed() -> void:
 
 
 func _on_quit_button_pressed() -> void:
+	get_tree().get_root().propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 	get_tree().quit()
