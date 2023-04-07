@@ -51,19 +51,12 @@ alignment = 1
 
 [node name="Title" type="Label" parent="Credits/V"]
 layout_mode = 2
-offset_top = 256.0
-offset_right = 479.0
-offset_bottom = 354.0
 text = "Credits"
 label_settings = SubResource("LabelSettings_vdnnc")
 horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="Credits/V"]
 layout_mode = 2
-offset_top = 358.0
-offset_right = 479.0
-offset_bottom = 384.0
-pivot_offset = Vector2(1704, -399)
 text = "Terry Hearst - Everything so far lol"
 horizontal_alignment = 1
 

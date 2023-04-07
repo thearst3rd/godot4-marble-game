@@ -36,16 +36,10 @@ grow_vertical = 2
 
 [node name="V" type="VBoxContainer" parent="Panel/C"]
 layout_mode = 2
-offset_left = 138.0
-offset_top = 246.0
-offset_right = 338.0
-offset_bottom = 449.0
 theme_override_constants/separation = 24
 
 [node name="Label" type="Label" parent="Panel/C/V"]
 layout_mode = 2
-offset_right = 200.0
-offset_bottom = 70.0
 text = "Paused
 "
 label_settings = SubResource("LabelSettings_bco2c")
@@ -54,33 +48,22 @@ horizontal_alignment = 1
 [node name="Buttons" type="VBoxContainer" parent="Panel/C/V"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-offset_top = 94.0
-offset_right = 200.0
-offset_bottom = 203.0
 size_flags_horizontal = 4
 theme_override_constants/separation = 8
 
 [node name="ResumeButton" type="Button" parent="Panel/C/V/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
-offset_right = 200.0
-offset_bottom = 31.0
 text = "Resume"
 
 [node name="RestartButton" type="Button" parent="Panel/C/V/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
-offset_top = 39.0
-offset_right = 200.0
-offset_bottom = 70.0
 text = "Restart Level"
 
 [node name="ExitButton" type="Button" parent="Panel/C/V/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
-offset_top = 78.0
-offset_right = 200.0
-offset_bottom = 109.0
 text = "Exit Level"
 
 [connection signal="pressed" from="Panel/C/V/Buttons/ResumeButton" to="." method="_on_resume_button_pressed"]
