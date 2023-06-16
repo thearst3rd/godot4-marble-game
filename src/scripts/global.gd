@@ -18,3 +18,8 @@ func _input(event: InputEvent) -> void:
 			window.mode = Window.MODE_WINDOWED
 		else:
 			window.mode = Window.MODE_FULLSCREEN
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		get_tree().quit()

@@ -48,6 +48,7 @@ layout_mode = 2
 text = "Credits"
 
 [node name="QuitButton" type="Button" parent="C/PanelContainer/MarginContainer/V"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Quit"
 

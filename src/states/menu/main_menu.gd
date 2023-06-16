@@ -1,8 +1,14 @@
 extends Control
 
 
+@onready var play_button: Button = %PlayButton
+@onready var quit_button: Button = %QuitButton
+
+
 func _ready() -> void:
-	%PlayButton.grab_focus()
+	if OS.has_feature("web"):
+		quit_button.hide()
+	play_button.grab_focus()
 
 
 func _on_play_button_pressed() -> void:
@@ -19,4 +25,3 @@ func _on_credits_button_pressed() -> void:
 
 func _on_quit_button_pressed() -> void:
 	get_tree().get_root().propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
-	get_tree().quit()
