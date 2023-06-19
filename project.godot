@@ -198,5 +198,5 @@ powerup_controller={
 
 [physics]
 
-common/physics_ticks_per_second=240
+common/physics_ticks_per_second=125
 3d/default_gravity=30.0

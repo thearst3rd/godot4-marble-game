@@ -21,8 +21,13 @@ var jumping := false
 var is_level_finished := false
 var finish_point: Vector3
 
-@onready var center_node: Node3D = $CenterNode
-@onready var spring_arm: SpringArm3D = $CenterNode/SpringArm3D
+# For interpolation
+var prev_transform: Transform3D
+var current_transform: Transform3D
+
+@onready var mesh_instance: MeshInstance3D = %MeshInstance3D
+@onready var center_node: Node3D = %CenterNode
+@onready var spring_arm: SpringArm3D = %SpringArm3D
 
 
 func _ready() -> void:
@@ -32,19 +37,28 @@ func _ready() -> void:
 	center_node.top_level = true
 	center_node.position = position
 	center_node.rotation = Vector3.ZERO
+	mesh_instance.top_level = true
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 	if player_controller == null:
 		set_player_controller(PlayerController.new())
 
+	current_transform = transform
+	prev_transform = transform
+
 
 func _process(delta: float) -> void:
+	if transform != current_transform:
+		prev_transform = current_transform
+		current_transform = transform
+	var interp_transform := prev_transform.interpolate_with(transform, Engine.get_physics_interpolation_fraction())
+	mesh_instance.transform = interp_transform
 	if is_level_finished:
 		center_node.position = lerp(center_node.position, finish_point, delta)
 		spring_arm.rotation.x = lerp(spring_arm.rotation.x, deg_to_rad(-25), 3 * delta)
 		return
 
-	center_node.position = position
+	center_node.position = interp_transform.origin
 	# Use a workaround to use support both analog+digital actions until
 	# https://github.com/godotengine/godot/issues/45628 gets merged
 	var cameradir := player_controller.get_camera_direction()
