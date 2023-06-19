@@ -1,20 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://x10k41fn8cyv"]
+[gd_scene load_steps=7 format=3 uid="uid://x10k41fn8cyv"]
 
 [ext_resource type="Script" path="res://src/objects/marble.gd" id="1_ajff0"]
+[ext_resource type="Texture2D" uid="uid://c38l6io372aqw" path="res://assets/marble_texture_01.png" id="2_awssh"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wt7a8"]
 bounce = 0.5
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_brg08"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pq5tf"]
-height = 256
-seamless = true
-noise = SubResource("FastNoiseLite_brg08")
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y18wr"]
-albedo_color = Color(1, 0.505882, 1, 1)
-albedo_texture = SubResource("NoiseTexture2D_pq5tf")
+albedo_texture = ExtResource("2_awssh")
 roughness = 0.6
 
 [sub_resource type="SphereMesh" id="SphereMesh_wbonb"]
