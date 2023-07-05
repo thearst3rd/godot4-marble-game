@@ -4,6 +4,7 @@ extends Node
 var level_path: String
 
 var expand_analog := true
+var fov := 70
 
 
 func _ready() -> void:

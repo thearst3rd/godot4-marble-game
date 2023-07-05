@@ -44,6 +44,35 @@ layout_mode = 2
 text = "Expand Analog Range
 (Simulate modded controller)"
 
+[node name="M" type="MarginContainer" parent="V/V"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_right = 6
+
+[node name="H" type="HBoxContainer" parent="V/V/M"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="V/V/M/H"]
+layout_mode = 2
+text = "FOV"
+
+[node name="FovSlider" type="HSlider" parent="V/V/M/H"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 50.0
+max_value = 120.0
+value = 70.0
+
+[node name="FovLabel" type="Label" parent="V/V/M/H"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "70"
+horizontal_alignment = 2
+
 [connection signal="pressed" from="V/V/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="toggled" from="V/V/FullscreenCheck" to="." method="_on_fullscreen_check_toggled"]
 [connection signal="toggled" from="V/V/ExpandAnalogCheck" to="." method="_on_expand_analog_check_toggled"]
+[connection signal="value_changed" from="V/V/M/H/FovSlider" to="." method="_on_fov_slider_value_changed"]

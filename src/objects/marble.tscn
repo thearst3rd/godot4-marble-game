@@ -41,6 +41,8 @@ spring_length = 5.0
 margin = 0.1
 
 [node name="CameraRemoteTransform" type="RemoteTransform3D" parent="CenterNode/SpringArm3D"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.994522, -0.104528, 0, 0.104528, 0.994522, 0, 0, 0)
 
 [node name="TriggerDetector" type="Area3D" parent="."]
 collision_layer = 0

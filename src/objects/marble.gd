@@ -28,10 +28,11 @@ var current_transform: Transform3D
 @onready var mesh_instance: MeshInstance3D = %MeshInstance3D
 @onready var center_node: Node3D = %CenterNode
 @onready var spring_arm: SpringArm3D = %SpringArm3D
+@onready var camera_transform: RemoteTransform3D = %CameraRemoteTransform
 
 
 func _ready() -> void:
-	look_direction = spring_arm.global_rotation
+	look_direction = camera_transform.global_rotation
 	look_direction.z = 0.0
 	look_direction_raw = look_direction
 	center_node.top_level = true
@@ -68,7 +69,7 @@ func _process(delta: float) -> void:
 	look_direction.y = wrapf(look_direction.y, 0, TAU)
 	look_direction.x = clampf(look_direction.x, -PI/2 + 0.1, PI/2)
 	look_direction_raw = look_direction
-	spring_arm.rotation = look_direction
+	spring_arm.rotation = look_direction - camera_transform.rotation
 
 
 func _on_mouse_moved(relative: Vector2) -> void:
