@@ -106,17 +106,23 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 			jumping = false
 	elif player_controller.get_action("jump") and is_on_floor(state):
 		# Get jump angle
-		var jump_vector = Vector3.ZERO
+		var floor_contact_count := 0
+		var jump_vector := Vector3.ZERO
+		var floor_velocity := Vector3.ZERO
 		for contact in state.get_contact_count():
 			var contact_normal := state.get_contact_local_normal(contact)
 			if contact_normal.dot(Vector3.UP) > 0.5:
+				floor_contact_count += 1
 				jump_vector += contact_normal
+				floor_velocity += state.get_contact_collider_velocity_at_position(contact)
 		jump_vector = jump_vector.normalized()
+		floor_velocity /= floor_contact_count
 		# We don't want a jump to go any higher if you combine it with a bounce. Dot the jump vector with the current
 		# linear velocity to make the impulse smaller.
 		# Also, if the factor is less than 0, that means the bounce was too high that jumping would make the ball go
 		# _lower_ than it would without a jump! If that's the case, don't allow the jump
-		var factor := 1.0 - (linear_velocity / JUMP_IMPULSE).dot(jump_vector)
+		# We subtract out the floor velocity so that the jump height is relative to the floor for moving platforms
+		var factor := 1.0 - ((linear_velocity - floor_velocity) / JUMP_IMPULSE).dot(jump_vector)
 		if factor > 0:
 			jumping = true
 			apply_impulse(jump_vector.normalized() * JUMP_IMPULSE * factor)

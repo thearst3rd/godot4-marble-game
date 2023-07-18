@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cgagbuvskp0j6"]
+[gd_scene load_steps=18 format=3 uid="uid://cgagbuvskp0j6"]
 
 [ext_resource type="Script" path="res://src/scripts/level.gd" id="1_55c0p"]
 [ext_resource type="PackedScene" uid="uid://lo66bw0ph485" path="res://src/objects/start_pad.tscn" id="2_addvg"]
@@ -22,6 +22,30 @@ size = Vector3(16, 0.5, 16)
 [sub_resource type="BoxMesh" id="BoxMesh_ornpx"]
 material = ExtResource("2_gg0vu")
 size = Vector3(16, 0.5, 16)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vm7wc"]
+size = Vector3(4, 0.5, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_upvk6"]
+material = ExtResource("2_gg0vu")
+size = Vector3(4, 0.5, 4)
+
+[sub_resource type="Animation" id="Animation_os2f8"]
+resource_name = "oscillate"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 10, 0, 0, 1.5, 1, 10, 6, 0, 2, 1, 10, 6, 0, 3.5, 1, 10, 0, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1ada3"]
+_data = {
+"oscillate": SubResource("Animation_os2f8")
+}
 
 [sub_resource type="BoxMesh" id="BoxMesh_pebx6"]
 material = ExtResource("2_gg0vu")
@@ -60,6 +84,26 @@ shape = SubResource("BoxShape3D_kf183")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 mesh = SubResource("BoxMesh_ornpx")
+
+[node name="MovingPlatform" type="AnimatableBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MovingPlatform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_vm7wc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MovingPlatform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+mesh = SubResource("BoxMesh_upvk6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MovingPlatform"]
+autoplay = "oscillate"
+playback_process_mode = 0
+libraries = {
+"": SubResource("AnimationLibrary_1ada3")
+}
 
 [node name="Ramp" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 2.5, -12)
