@@ -22,8 +22,8 @@ var is_level_finished := false
 var finish_point: Vector3
 
 # For interpolation
-var prev_transform: Transform3D
-var current_transform: Transform3D
+#var prev_transform: Transform3D
+#var current_transform: Transform3D
 
 @onready var mesh_instance: MeshInstance3D = %MeshInstance3D
 @onready var center_node: Node3D = %CenterNode
@@ -44,15 +44,16 @@ func _ready() -> void:
 	if player_controller == null:
 		set_player_controller(PlayerController.new())
 
-	current_transform = transform
-	prev_transform = transform
+	#current_transform = transform
+	#prev_transform = transform
 
 
 func _process(delta: float) -> void:
-	if transform != current_transform:
-		prev_transform = current_transform
-		current_transform = transform
-	var interp_transform := prev_transform.interpolate_with(transform, Engine.get_physics_interpolation_fraction())
+	#if transform != current_transform:
+	#	prev_transform = current_transform
+	#	current_transform = transform
+	#var interp_transform := prev_transform.interpolate_with(transform, Engine.get_physics_interpolation_fraction())
+	var interp_transform := transform
 	mesh_instance.transform = interp_transform
 	if is_level_finished:
 		center_node.position = lerp(center_node.position, finish_point, delta)
