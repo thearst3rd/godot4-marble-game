@@ -1,0 +1,77 @@
+[gd_scene load_steps=13 format=3 uid="uid://bhk2gr0nwsykf"]
+
+[ext_resource type="Script" path="res://src/scripts/level.gd" id="1_v5btw"]
+[ext_resource type="Material" uid="uid://dfgky8i28wa1a" path="res://resources/gradient_texture1.tres" id="2_utnd4"]
+[ext_resource type="PackedScene" uid="uid://lo66bw0ph485" path="res://src/objects/start_pad.tscn" id="3_v7oga"]
+[ext_resource type="PackedScene" uid="uid://4h4vpjiun6rw" path="res://src/objects/super_jump.tscn" id="4_e0m48"]
+[ext_resource type="PackedScene" uid="uid://5b7m40r8veu5" path="res://src/objects/finish_area.tscn" id="5_t6rwq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jm3p3"]
+
+[sub_resource type="Sky" id="Sky_dssyr"]
+sky_material = SubResource("ProceduralSkyMaterial_jm3p3")
+
+[sub_resource type="Environment" id="Environment_uoubv"]
+background_mode = 2
+sky = SubResource("Sky_dssyr")
+ambient_light_source = 3
+reflected_light_source = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7hfqx"]
+size = Vector3(16, 0.5, 16)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qe6rc"]
+material = ExtResource("2_utnd4")
+size = Vector3(16, 0.5, 16)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7psik"]
+material = ExtResource("2_utnd4")
+size = Vector3(8, 0.5, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7s6yu"]
+size = Vector3(8, 0.5, 4)
+
+[node name="TestSuperJump" type="Node3D"]
+script = ExtResource("1_v5btw")
+level_name = "Test Super Jump"
+level_author = "Terry Hearst"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_uoubv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="."]
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_7hfqx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+mesh = SubResource("BoxMesh_qe6rc")
+
+[node name="StartPad" parent="Floor" instance=ExtResource("3_v7oga")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6, 0, 0)
+
+[node name="SuperJump" parent="." instance=ExtResource("4_e0m48")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.5, 0)
+
+[node name="Ramp5" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 16, 0)
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ramp5"]
+mesh = SubResource("BoxMesh_7psik")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp5"]
+shape = SubResource("BoxShape3D_7s6yu")
+
+[node name="FinishArea" parent="." instance=ExtResource("5_t6rwq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 19, 0)

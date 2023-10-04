@@ -9,6 +9,7 @@ const MOVE_TORQUE = 5.0
 const MOUSE_LOOK_SENS = Vector2(0.0015, 0.0015)
 const CONTROLLER_LOOK_SENS = Vector2(4.0, 3.0)
 const JUMP_IMPULSE = 13.0
+const SUPERJUMP_IMPULSE = 30.0
 const FINISH_FORCE = 10.0
 
 var player_controller: PlayerController = null
@@ -20,6 +21,8 @@ var jumping := false
 
 var is_level_finished := false
 var finish_point: Vector3
+
+var has_superjump := false
 
 # For interpolation
 #var prev_transform: Transform3D
@@ -128,6 +131,11 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 			jumping = true
 			apply_impulse(jump_vector.normalized() * JUMP_IMPULSE * factor)
 
+	# Apply powerups
+	if has_superjump and player_controller.get_action("powerup"):
+		apply_impulse(Vector3.UP * SUPERJUMP_IMPULSE)
+		has_superjump = false
+
 
 func is_on_floor(state: PhysicsDirectBodyState3D) -> bool:
 	for contact in state.get_contact_count():
@@ -140,12 +148,17 @@ func is_on_floor(state: PhysicsDirectBodyState3D) -> bool:
 func _on_trigger_entered(area: Area3D) -> void:
 	if is_level_finished:
 		return
+	if not area.visible:
+		return
 	if area.is_in_group("finish"):
 		emit_signal("level_finished")
 		do_finish_effect(area.position)
 	elif area.is_in_group("gem"):
 		area.queue_free()
 		emit_signal("gem_collected")
+	elif area.is_in_group("superjump"):
+		area.hide()
+		has_superjump = true
 
 
 func do_finish_effect(finish_pos: Vector3):

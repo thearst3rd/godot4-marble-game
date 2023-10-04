@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://4h4vpjiun6rw"]
+
+[ext_resource type="Script" path="res://src/objects/super_jump.gd" id="1_abuml"]
+[ext_resource type="PackedScene" uid="uid://bhmivy7mdp8ff" path="res://assets/models/super_jump.glb" id="1_msrp8"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kyb7i"]
+radius = 0.75
+
+[node name="SuperJump" type="Area3D" groups=["superjump"]]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_abuml")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_kyb7i")
+
+[node name="Mesh" parent="." instance=ExtResource("1_msrp8")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, -0.4, 0)
